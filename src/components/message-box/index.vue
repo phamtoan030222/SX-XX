@@ -51,10 +51,6 @@ const tabList: TabItem[] = [
     key: 'notice',
     title: t('messageBox.tab.title.notice'),
   },
-  {
-    key: 'todo',
-    title: t('messageBox.tab.title.todo'),
-  },
 ]
 async function fetchSourceData() {
   setLoading(true)

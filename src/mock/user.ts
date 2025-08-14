@@ -6,23 +6,21 @@ import { isLogin } from '@/utils/auth'
 
 setupMock({
   setup() {
-    // Mock.XHR.prototype.withCredentials = true;
-
-    // 用户信息
+    // Thông tin người dùng
     Mock.mock(new RegExp('/api/user/info'), () => {
       if (isLogin()) {
         const role = window.localStorage.getItem('userRole') || 'admin'
         return successResponseWrap({
-          name: '王立群',
+          name: 'Phạm toàn',
           avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
           email: 'wangliqun@email.com',
           job: 'frontend',
-          jobName: '前端艺术家',
+          jobName: 'Nghệ sĩ Frontend',
           organization: 'Frontend',
-          organizationName: '前端',
+          organizationName: 'Frontend',
           location: 'beijing',
-          locationName: '北京',
-          introduction: '人潇洒，性温存',
+          locationName: 'Bắc Kinh',
+          introduction: 'Người phong cách, tính cách nhẹ nhàng',
           personalWebsite: 'https://www.arco.design',
           phone: '150****0000',
           registrationDate: '2013-05-10 12:10:00',
@@ -31,17 +29,17 @@ setupMock({
           role,
         })
       }
-      return failResponseWrap(null, '未登录', 50008)
+      return failResponseWrap(null, 'Chưa đăng nhập', 50008)
     })
 
-    // 登录
+    // Đăng nhập
     Mock.mock(new RegExp('/api/user/login'), (params: MockParams) => {
       const { username, password } = JSON.parse(params.body)
       if (!username) {
-        return failResponseWrap(null, '用户名不能为空', 50000)
+        return failResponseWrap(null, 'Tên đăng nhập không được để trống', 50000)
       }
       if (!password) {
-        return failResponseWrap(null, '密码不能为空', 50000)
+        return failResponseWrap(null, 'Mật khẩu không được để trống', 50000)
       }
       if (username === 'admin' && password === 'admin') {
         window.localStorage.setItem('userRole', 'admin')
@@ -55,22 +53,22 @@ setupMock({
           token: '54321',
         })
       }
-      return failResponseWrap(null, '账号或者密码错误', 50000)
+      return failResponseWrap(null, 'Tài khoản hoặc mật khẩu sai', 50000)
     })
 
-    // 登出
+    // Đăng xuất
     Mock.mock(new RegExp('/api/user/logout'), () => {
       return successResponseWrap(null)
     })
 
-    // 用户的服务端菜单
+    // Menu phía server của người dùng
     Mock.mock(new RegExp('/api/user/menu'), () => {
       const menuList = [
         {
           path: '/dashboard',
           name: 'dashboard',
           meta: {
-            locale: 'menu.server.dashboard',
+            locale: 'menu.server.dashboard', // Bảng điều khiển - Máy chủ
             requiresAuth: true,
             icon: 'icon-dashboard',
             order: 1,
@@ -80,7 +78,7 @@ setupMock({
               path: 'workplace',
               name: 'Workplace',
               meta: {
-                locale: 'menu.server.workplace',
+                locale: 'menu.server.workplace', // Bàn làm việc - Máy chủ
                 requiresAuth: true,
               },
             },
@@ -88,7 +86,7 @@ setupMock({
               path: 'https://arco.design',
               name: 'arcoWebsite',
               meta: {
-                locale: 'menu.arcoWebsite',
+                locale: 'menu.arcoWebsite', // Arco Design
                 requiresAuth: true,
               },
             },

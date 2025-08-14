@@ -11,15 +11,6 @@
     </div>
     <ul class="right-side">
       <li>
-        <a-tooltip :content="$t('settings.search')">
-          <a-button class="nav-btn" type="outline" :shape="'circle'">
-            <template #icon>
-              <icon-search />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
-      <li>
         <a-tooltip :content="$t('settings.language')">
           <a-button class="nav-btn" type="outline" :shape="'circle'" @click="setDropDownVisible">
             <template #icon>
@@ -97,62 +88,7 @@
           </a-avatar>
           <template #content>
             <a-doption>
-              <a-space @click="switchGit">
-                <icon-github />
-                <span>开源地址</span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="switchRoles">
-                <icon-tag />
-                <span>
-                  {{ $t('messageBox.switchRoles') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="$router.push({ name: 'info' })">
-                <icon-user />
-                <span>
-                  {{ $t('messageBox.userCenter') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="$router.push({ name: 'setting' })">
-                <icon-settings />
-                <span>
-                  {{ $t('messageBox.userSettings') }}
-                </span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="open('/shop-vite')">
-                <icon-tag />
-                <span>shop vite</span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="open('/admin-plus')">
-                <icon-tag />
-                <span>admin plus</span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="open('/admin-pro')">
-                <icon-tag />
-                <span>admin pro</span>
-              </a-space>
-            </a-doption>
-            <a-doption>
-              <a-space @click="open('/vue-admin-better')">
-                <icon-tag />
-                <span>admin better</span>
-              </a-space>
-            </a-doption>
-            <a-doption>
               <a-space @click="handleLogout">
-                <icon-export />
                 <span>
                   {{ $t('messageBox.logout') }}
                 </span>

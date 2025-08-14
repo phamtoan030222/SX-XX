@@ -8,7 +8,7 @@ export const successResponseWrap = (data: unknown) => {
   return {
     data,
     status: 'ok',
-    msg: '请求成功',
+    msg: 'Thao tác thành công',
     code: 20000,
   }
 }

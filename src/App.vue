@@ -9,7 +9,7 @@
 import GlobalSetting from '@/components/global-setting/index.vue'
 import useLocale from '@/hooks/locale'
 import enUS from '@arco-design/web-vue/es/locale/lang/en-us'
-import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn'
+import zhCN from '@arco-design/web-vue/es/locale/lang/vi-vn'
 import { computed } from 'vue'
 
 const { currentLocale } = useLocale()

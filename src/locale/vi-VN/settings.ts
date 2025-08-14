@@ -1,0 +1,28 @@
+export default {
+  'settings.title': 'Cấu hình trang',
+  'settings.themeColor': 'Màu chủ đề',
+  'settings.content': 'Khu vực nội dung',
+  'settings.search': 'Tìm kiếm',
+  'settings.language': 'Ngôn ngữ',
+  'settings.navbar': 'Thanh điều hướng',
+  'settings.menuWidth': 'Chiều rộng menu (px)',
+  'settings.navbar.theme.toLight': 'Bấm để chuyển sang chế độ sáng',
+  'settings.navbar.theme.toDark': 'Bấm để chuyển sang chế độ tối',
+  'settings.navbar.screen.toFull': 'Bấm để chuyển sang chế độ toàn màn hình',
+  'settings.navbar.screen.toExit': 'Bấm để thoát toàn màn hình',
+  'settings.navbar.alerts': 'Thông báo',
+  'settings.menu': 'Thanh menu',
+  'settings.topMenu': 'Menu trên cùng',
+  'settings.tabBar': 'Thanh tab đa trang',
+  'settings.footer': 'Chân trang',
+  'settings.otherSettings': 'Cài đặt khác',
+  'settings.colorWeak': 'Chế độ giảm màu',
+  'settings.alertContent':
+    'Cấu hình này chỉ có hiệu lực tạm thời. Để áp dụng chính thức cho dự án, hãy bấm nút "Sao chép cấu hình" bên dưới và thay thế vào file settings.json.',
+  'settings.copySettings': 'Sao chép cấu hình',
+  'settings.copySettings.message': 'Sao chép thành công, vui lòng dán vào file src/settings.json',
+  'settings.close': 'Đóng',
+  'settings.color.tooltip':
+    '10 gam màu được tạo dựa trên màu chủ đề (Sao chép cấu hình vào dự án để màu chủ đề áp dụng cho cả chế độ sáng / tối)',
+  'settings.menuFromServer': 'Menu lấy từ máy chủ',
+}

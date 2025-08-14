@@ -1,23 +1,32 @@
 import localeMessageBox from '@/components/message-box/locale/en-US'
 import localeLogin from '@/views/login/locale/en-US'
 
-import localeWorkplace from '@/views/dashboard/workplace/locale/en-US'
+import localeWorkplace from '@/views/admin/dashboard/workplace/locale/en-US'
 /** simple */
-import localeMonitor from '@/views/dashboard/monitor/locale/en-US'
 
-import localeCardList from '@/views/list/card/locale/en-US'
-import localeSearchTable from '@/views/list/search-table/locale/en-US'
+import localeCardList from '@/views/admin/orders/card/locale/en-US'
+import localeSearchTable from '@/views/admin/orders/search-table/locale/en-US'
 
-import localeGroupForm from '@/views/form/group/locale/en-US'
-import localeStepForm from '@/views/form/step/locale/en-US'
+import localeGroupForm from '@/views/admin/products/product/locale/en-US'
+import localeImel from '@/views/admin/products/imel/locale/en-US'
+import localeColor from '@/views/admin/products/color/locale/en-US'
+import localeRam from '@/views/admin/products/ram/locale/en-US'
+import localeStorage from '@/views/admin/products/storage/locale/en-US'
+import localeMaterial from '@/views/admin/products/material/locale/en-US'
+import localeGPU from '@/views/admin/products/gpu/locale/en-US'
+import localeCPU from '@/views/admin/products/cpu/locale/en-US'
+import localeScreen from '@/views/admin/products/screen/locale/en-US'
+import localeBrand from '@/views/admin/products/brand/locale/en-US'
+import localeBattery from '@/views/admin/products/battery/locale/en-US'
+import localeOperating from '@/views/admin/products/operating/locale/en-US'
 
-import localeBasicProfile from '@/views/profile/basic/locale/en-US'
+import localePromotion from '@/views/admin/discount/promotion/locale/en-US'
+import localeCoupon from '@/views/admin/discount/coupon/locale/en-US'
 
-import localeDataAnalysis from '@/views/visualization/data-analysis/locale/en-US'
-import localeMultiDAnalysis from '@/views/visualization/multi-dimension-data-analysis/locale/en-US'
+import localeDataAnalysis from '@/views/admin/visualization/data-analysis/locale/en-US'
 
-import localeError from '@/views/result/error/locale/en-US'
-import localeSuccess from '@/views/result/success/locale/en-US'
+import localeClient from '@/views/admin/users/client/locale/en-US'
+import localeStaff from '@/views/admin/users/staff/locale/en-US'
 
 import locale403 from '@/views/exception/403/locale/en-US'
 import locale404 from '@/views/exception/404/locale/en-US'
@@ -49,16 +58,25 @@ export default {
   ...localeLogin,
   ...localeWorkplace,
   /** simple */
-  ...localeMonitor,
   ...localeSearchTable,
   ...localeCardList,
-  ...localeStepForm,
+  ...localeImel,
+  ...localeColor,
+  ...localeRam,
+  ...localeStorage,
+  ...localeMaterial,
+  ...localeGPU,
+  ...localeCPU,
+  ...localeScreen,
+  ...localeBrand,
+  ...localeBattery,
+  ...localeOperating,
   ...localeGroupForm,
-  ...localeBasicProfile,
+  ...localePromotion,
+  ...localeCoupon,
   ...localeDataAnalysis,
-  ...localeMultiDAnalysis,
-  ...localeSuccess,
-  ...localeError,
+  ...localeClient,
+  ...localeStaff,
   ...locale403,
   ...locale404,
   ...locale500,

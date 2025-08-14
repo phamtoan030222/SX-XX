@@ -1,0 +1,15 @@
+export default {
+  'menu.user.info': 'Thông tin người dùng',
+  'userInfo.editUserInfo': 'Chỉnh sửa thông tin',
+  'userInfo.tab.title.overview': 'Tổng quan',
+  'userInfo.tab.title.project': 'Dự án',
+  'userInfo.tab.title.team': 'Nhóm của tôi',
+  'userInfo.title.latestActivity': 'Hoạt động mới nhất',
+  'userInfo.title.latestNotification': 'Thông báo nội bộ',
+  'userInfo.title.myProject': 'Dự án của tôi',
+  'userInfo.showMore': 'Xem thêm',
+  'userInfo.viewAll': 'Xem tất cả',
+  'userInfo.nodata': 'Không có dữ liệu',
+  'userInfo.visits.unit': 'Lượt',
+  'userInfo.visits.lastMonth': 'So với tháng trước',
+}

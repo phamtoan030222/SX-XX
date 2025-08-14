@@ -18,27 +18,27 @@
     <template #content>
       <a-doption :disabled="disabledReload" :value="Eaction.reload">
         <icon-refresh />
-        <span>重新加载</span>
+        <span>Tải lại</span>
       </a-doption>
       <a-doption class="sperate-line" :disabled="disabledCurrent" :value="Eaction.current">
         <icon-close />
-        <span>关闭当前标签页</span>
+        <span>Đóng thẻ hiện tại</span>
       </a-doption>
       <a-doption :disabled="disabledLeft" :value="Eaction.left">
         <icon-to-left />
-        <span>关闭左侧标签页</span>
+        <span>Đóng các thẻ bên trái</span>
       </a-doption>
       <a-doption class="sperate-line" :disabled="disabledRight" :value="Eaction.right">
         <icon-to-right />
-        <span>关闭右侧标签页</span>
+        <span>Đóng các thẻ bên phải</span>
       </a-doption>
       <a-doption :value="Eaction.others">
         <icon-swap />
-        <span>关闭其它标签页</span>
+        <span>Đóng các thẻ khác</span>
       </a-doption>
       <a-doption :value="Eaction.all">
         <icon-folder-delete />
-        <span>关闭全部标签页</span>
+        <span>Đóng tất cả thẻ</span>
       </a-doption>
     </template>
   </a-dropdown>
@@ -104,7 +104,7 @@ const disabledRight = computed(() => {
 const tagClose = (tag: TagProps, idx: number) => {
   tabBarStore.deleteTag(idx, tag)
   if (props.itemData.fullPath === route.fullPath) {
-    const latest = tagList.value[idx - 1] // 获取队列的前一个tab
+    const latest = tagList.value[idx - 1]
     router.push({ name: latest.name })
   }
 }

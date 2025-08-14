@@ -1,12 +1,13 @@
 import { createI18n } from 'vue-i18n'
 import en from './en-US'
-import cn from './zh-CN'
+import vi from './vi-VN' // Thêm file tiếng Việt
 
 export const LOCALE_OPTIONS = [
-  { label: '中文', value: 'zh-CN' },
+  { label: 'Tiếng Việt', value: 'vi-VN' },
   { label: 'English', value: 'en-US' },
 ]
-const defaultLocale = localStorage.getItem('arco-locale') || 'zh-CN'
+
+const defaultLocale = localStorage.getItem('arco-locale') || 'vi-VN'
 
 const i18n = createI18n({
   locale: defaultLocale,
@@ -15,7 +16,7 @@ const i18n = createI18n({
   allowComposition: true,
   messages: {
     'en-US': en,
-    'zh-CN': cn,
+    'vi-VN': vi, // Thêm bản dịch tiếng Việt
   },
 })
 

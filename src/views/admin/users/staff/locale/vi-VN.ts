@@ -1,0 +1,15 @@
+export default {
+  'menu.users.staff': 'Nhân viên',
+  'success.result.title': 'Gửi thành công',
+  'success.result.subTitle': 'Biểu mẫu đã được gửi thành công!',
+  'success.result.printResult': 'In kết quả',
+  'success.result.projectList': 'Quay lại danh sách dự án',
+  'success.result.progress': 'Tiến độ hiện tại',
+  'success.submitApplication': 'Nộp đơn',
+  'success.leaderReview': 'Lãnh đạo trực tiếp xét duyệt',
+  'success.purchaseCertificate': 'Mua chứng chỉ',
+  'success.safetyTest': 'Kiểm tra an toàn',
+  'success.launched': 'Chính thức ra mắt',
+  'success.waiting': 'Chưa bắt đầu',
+  'success.processing': 'Đang tiến hành',
+}

@@ -1,0 +1,15 @@
+export default {
+  'login.form.title': 'ĐĂNG NHẬP',
+  'login.form.userName.errMsg': 'Tên người dùng không được để trống',
+  'login.form.password.errMsg': 'Mật khẩu không được để trống',
+  'login.form.login.errMsg': 'Lỗi đăng nhập, vui lòng làm mới trang và thử lại',
+  'login.form.login.success': 'Chào mừng bạn sử dụng',
+  'login.form.userName.placeholder': 'Tên người dùng: admin',
+  'login.form.password.placeholder': 'Mật khẩu: admin',
+  'login.form.rememberPassword': 'Ghi nhớ mật khẩu',
+  'login.form.forgetPassword': 'Quên mật khẩu',
+  'login.form.login': 'Đăng nhập',
+  'login.form.register': 'Đăng ký tài khoản',
+  'login.banner.slogan1': 'Sản phẩm chất lượng',
+  'login.banner.subSlogan1': 'Giá thành hợp lý',
+}

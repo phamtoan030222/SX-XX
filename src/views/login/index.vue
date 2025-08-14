@@ -1,28 +1,9 @@
 <template>
   <div class="login-bg">
     <div class="container">
-      <div class="scan-login-btn" @click="showQr = true">
-        <svg class="scan-icon" viewBox="0 0 24 24" width="20" height="20">
-          <rect x="3" y="3" width="7" height="7" rx="2" fill="none" stroke="#00308f" stroke-width="2" />
-          <rect x="14" y="3" width="7" height="7" rx="2" fill="none" stroke="#00308f" stroke-width="2" />
-          <rect x="14" y="14" width="7" height="7" rx="2" fill="none" stroke="#00308f" stroke-width="2" />
-          <rect x="3" y="14" width="7" height="7" rx="2" fill="none" stroke="#00308f" stroke-width="2" />
-        </svg>
-        <span>扫码登录</span>
-      </div>
-      <a-modal v-model:visible="showQr" title="扫码登录" :footer="false" width="320px">
-        <div class="qr-modal-content">
-          <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=login-demo"
-            alt="二维码"
-            style="width: 200px; height: 200px; display: block; margin: 0 auto"
-          />
-          <div style="text-align: center; margin-top: 12px; color: #888">请使用微信/钉钉等扫码登录</div>
-        </div>
-      </a-modal>
       <div class="logo">
         <img alt="logo" src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image" />
-        <div class="logo-text">Vue Admin Arco</div>
+        <div class="logo-text">My Laptop</div>
       </div>
       <LoginBanner />
       <div class="content">
@@ -102,6 +83,7 @@ export default defineComponent({
   position: absolute;
   top: 32px;
   left: 32px;
+  transform: translateX(35%);
   z-index: 2;
   display: flex;
   align-items: center;

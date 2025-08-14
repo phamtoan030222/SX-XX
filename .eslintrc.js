@@ -5,7 +5,7 @@ module.exports = {
   root: true,
   parser: 'vue-eslint-parser',
   parserOptions: {
-    // Parser that checks the content of the <script> tag
+    // Parser for <script> blocks
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
     ecmaVersion: 2020,
@@ -19,7 +19,6 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   extends: [
-    // Airbnb JavaScript Style Guide https://github.com/airbnb/javascript
     'airbnb-base',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
@@ -31,22 +30,32 @@ module.exports = {
       typescript: {
         project: path.resolve(__dirname, './tsconfig.json'),
       },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+      },
     },
   },
   rules: {
+    // Prettier warning as warning (1)
     'prettier/prettier': 1,
+
+    // Vue rules modifications
     'vue/no-reserved-component-names': 0,
-    // Vue: Recommended rules to be closed or modify
     'vue/require-default-prop': 0,
     'vue/singleline-html-element-content-newline': 0,
     'vue/max-attributes-per-line': 0,
-    // Vue: Add extra rules
     'vue/multi-word-component-names': 0,
-    // Allow @ts-ignore comment
+    'vue/require-valid-default-prop': 0,
+    'vue/attribute-hyphenation': 0,
+
+    // Typescript rules
     '@typescript-eslint/ban-ts-comment': 0,
-    '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/ban-types': 0,
+
+    // Import rules
     'import/extensions': [
       2,
       'ignorePackages',
@@ -57,13 +66,12 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': 0,
+
+    // Other
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-param-reassign': 0,
     'prefer-regex-literals': 0,
-    'import/no-extraneous-dependencies': 0,
-    'vue/require-valid-default-prop': 0,
-    '@typescript-eslint/no-unused-vars': 0,
-    'vue/attribute-hyphenation': 0,
-    '@typescript-eslint/ban-types': 0,
+    'no-plusplus': 'off',
   },
 }
