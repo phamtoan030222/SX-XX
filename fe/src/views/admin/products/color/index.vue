@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { getAllColors, updateColorStatus, createColor, updateColor, type ColorResponse, type ParamsGetColor } from '@/api/colorApi'
-import { Message, type FieldRule, type FormInstance } from '@arco-design/web-vue'
+import { Message, type FieldRule, type FormInstance, Switch } from '@arco-design/web-vue'
 import { onMounted, reactive, ref, watch } from 'vue'
 
 // ====== State ======
@@ -151,9 +151,10 @@ const columns = [
     title: 'Trạng thái',
     dataIndex: 'colorStatus',
     render: ({ record }: { record: ColorResponse }) => (
-      <a-switch checked={record.colorStatus === 'ACTIVE'} onChange={(checked) => toggleStatus(record, checked as boolean)} />
+      <Switch modelValue={record.colorStatus === 'ACTIVE'} onChange={(checked: boolean) => toggleStatus(record, checked)} />
     ),
   },
+
   {
     title: 'Hành động',
     dataIndex: 'action',
