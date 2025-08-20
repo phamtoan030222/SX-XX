@@ -19,7 +19,11 @@ public class MappingConstants {
 
     /* API FOR MANAGE */
     public static final String API_PREFIX_MANAGE = API_VERSION_PREFIX + "/manage";
-    public static final String API_TEST = API_PREFIX_MANAGE + "/product";
+    public static final String API_ADMIN_PRODUCT = API_PREFIX_MANAGE + "/product";
+
+    public static final String API_ADMIN_PRODUCT_CPU = API_ADMIN_PRODUCT + "/cpu";
+    public static final String API_ADMIN_PRODUCT_GPU = API_ADMIN_PRODUCT + "/gpu";
+    public static final String API_ADMIN_PRODUCT_SCREEN = API_ADMIN_PRODUCT + "/screen";
 
 
 }
