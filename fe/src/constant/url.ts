@@ -9,7 +9,6 @@ export const DOMAIN_FRONTEND = `${VITE_BASE_URL_CLIENT}` as string
 
 export const URL_FRONTEND = `${DOMAIN_FRONTEND}/redirect`
 
-//SUB_REDIRECT
 export const SCREEN_ROLE_ADMIN = `&screen=ADMIN`
 
 export const URL_OAUTH2_GOOGLE_ADMIN = () =>

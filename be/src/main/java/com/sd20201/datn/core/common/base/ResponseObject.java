@@ -22,12 +22,24 @@ public class ResponseObject<T> {
 
     private String message;
 
+
+    private T message2;
+
     private Instant timestamp = Instant.now();
 
     public ResponseObject(T obj, HttpStatus status, String message) {
         processResponseObject(obj);
         this.status = status;
         this.message = message;
+    }
+
+    public ResponseObject(Object o, HttpStatus httpStatus, String message, boolean b, Object o1) {
+        this.data = (T) o;
+        this.status = httpStatus;
+        this.message = message;
+        this.isSuccess = b;
+        this.message2 = (T) o1;
+
     }
 
     public void processResponseObject(T obj) {

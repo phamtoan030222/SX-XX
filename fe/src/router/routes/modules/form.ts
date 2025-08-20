@@ -2,11 +2,11 @@ import { DEFAULT_LAYOUT } from '../base'
 import { AppRouteRecordRaw } from '../types'
 
 const FORM: AppRouteRecordRaw = {
-  path: '/form',
+  path: '/products',
   name: 'Form',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: 'menu.form',
+    locale: 'menu.products',
     icon: 'icon-settings',
     requiresAuth: true,
     order: 3,
@@ -17,7 +17,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Product',
       component: () => import('@/views/admin/products/product/index.vue'),
       meta: {
-        locale: 'menu.form.product',
+        locale: 'menu.products.product',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -27,7 +27,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Color',
       component: () => import('@/views/admin/products/color/index.vue'),
       meta: {
-        locale: 'menu.form.color',
+        locale: 'menu.products.color',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -37,7 +37,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Ram',
       component: () => import('@/views/admin/products/ram/index.vue'),
       meta: {
-        locale: 'menu.form.ram',
+        locale: 'menu.products.ram',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -47,7 +47,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Storage',
       component: () => import('@/views/admin/products/storage/index.vue'),
       meta: {
-        locale: 'menu.form.storage',
+        locale: 'menu.products.storage',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -57,7 +57,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Material',
       component: () => import('@/views/admin/products/material/index.vue'),
       meta: {
-        locale: 'menu.form.material',
+        locale: 'menu.products.material',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -67,7 +67,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'GPU',
       component: () => import('@/views/admin/products/gpu/index.vue'),
       meta: {
-        locale: 'menu.form.gpu',
+        locale: 'menu.products.gpu',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -77,7 +77,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'CPU',
       component: () => import('@/views/admin/products/cpu/index.vue'),
       meta: {
-        locale: 'menu.form.cpu',
+        locale: 'menu.products.cpu',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -87,7 +87,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Screen',
       component: () => import('@/views/admin/products/screen/index.vue'),
       meta: {
-        locale: 'menu.form.screen',
+        locale: 'menu.products.screen',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -97,7 +97,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Brand',
       component: () => import('@/views/admin/products/brand/index.vue'),
       meta: {
-        locale: 'menu.form.brand',
+        locale: 'menu.products.brand',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -107,7 +107,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'OperatingSystem',
       component: () => import('@/views/admin/products/operating/index.vue'),
       meta: {
-        locale: 'menu.form.operating',
+        locale: 'menu.products.operating',
         requiresAuth: true,
         roles: ['admin'],
       },
