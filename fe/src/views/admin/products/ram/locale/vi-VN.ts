@@ -1,5 +1,9 @@
 export default {
+<<<<<<< HEAD
   'menu.form.ram': 'RAM',
+=======
+  'menu.products.ram': 'RAM',
+>>>>>>> 73caf45 (Initial commit)
   'stepForm.step.title': 'Tạo biểu mẫu kênh',
   'stepForm.step.title.baseInfo': 'Chọn thông tin cơ bản',
   'stepForm.step.subTitle.baseInfo': 'Tạo hoạt động kênh',

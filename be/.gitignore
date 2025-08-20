@@ -37,3 +37,4 @@ out/
 .vscode/
 be/.env
 be/src/main/resources/application.properties
+

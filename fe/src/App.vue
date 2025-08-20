@@ -5,7 +5,7 @@
   </a-config-provider>
 </template>
 
-<script lang="ts" setup>
+<script lang="jsx" setup>
 import GlobalSetting from '@/components/global-setting/index.vue'
 import useLocale from '@/hooks/locale'
 import enUS from '@arco-design/web-vue/es/locale/lang/en-us'
@@ -23,6 +23,4 @@ const locale = computed(() => {
       return enUS
   }
 })
-
-
 </script>

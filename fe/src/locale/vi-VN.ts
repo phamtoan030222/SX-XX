@@ -45,7 +45,8 @@ export default {
   'menu.list': 'Đơn hàng',
   'menu.users': 'Người dùng',
   'menu.exception': 'Hỗ trợ khách hàng',
-  'menu.form': 'Sản phẩm',
+
+  'menu.products': 'Sản phẩm',
   'menu.discount': 'Giảm giá',
   'menu.visualization': 'Thống kê',
   'menu.user': 'Trung tâm cá nhân',

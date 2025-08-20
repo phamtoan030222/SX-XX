@@ -30,9 +30,15 @@
 </template>
 
 <script lang="ts" setup>
+<<<<<<< HEAD
 import { ref } from 'vue'
 import useLoading from '@/hooks/loading'
 import { submitChannelForm, BaseInfoModel, ChannelInfoModel, UnitChannelModel } from '@/api/form'
+=======
+import { BaseInfoModel, ChannelInfoModel, submitChannelForm, UnitChannelModel } from '@/api/colorApi'
+import useLoading from '@/hooks/loading'
+import { ref } from 'vue'
+>>>>>>> 73caf45 (Initial commit)
 import BaseInfo from './components/base-info.vue'
 import ChannelInfo from './components/channel-info.vue'
 import Success from './components/success.vue'

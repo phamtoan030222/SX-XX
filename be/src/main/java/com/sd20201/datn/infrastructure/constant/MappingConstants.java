@@ -18,8 +18,14 @@ public class MappingConstants {
     public static final String API_LOGIN = API_VERSION_PREFIX + "/login";
 
     /* API FOR MANAGE */
+
+    public static final String ADMIN = "/admin";
     public static final String API_PREFIX_MANAGE = API_VERSION_PREFIX + "/manage";
     public static final String API_TEST = API_PREFIX_MANAGE + "/product";
 
 
+    /* API PRODUCTS */
+    public static final String API_ADMIN_PREFIX = API_VERSION_PREFIX + ADMIN;
+    public static final String API_ADMIN_PREFIX_PRODUCTS = API_ADMIN_PREFIX + "/products";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_COLOR = API_ADMIN_PREFIX_PRODUCTS + "/color";
 }
