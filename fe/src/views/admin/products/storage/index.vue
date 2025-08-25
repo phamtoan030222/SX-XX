@@ -197,8 +197,8 @@ onMounted(() => {
       <a-row :gutter="16" align="middle" style="margin-bottom: 16px">
         <!-- Input tìm kiếm -->
         <a-col :span="8">
-          <a-form-item label="Tên ổ cứng" labelAlign="left" labelCol="{ span: 24 }">
-            <a-input v-model="search" :placeholder="$t('menu.products.hardDrive.search')" allow-clear />
+          <a-form-item label="Tên ổ" labelAlign="left" labelCol="{ span: 24 }">
+            <a-input v-model="search" :placeholder="$t('search.placeholder')" allow-clear />
           </a-form-item>
         </a-col>
 

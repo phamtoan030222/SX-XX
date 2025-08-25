@@ -15,3 +15,5 @@ export const API_ADMIN_PRODUCT_CPU = `${API_ADMIN_PRODUCTS}/cpu` as string
 export const API_ADMIN_PRODUCT_GPU = `${API_ADMIN_PRODUCTS}/gpu` as string
 export const API_ADMIN_PRODUCT_SCREEN = `${API_ADMIN_PRODUCTS}/screen` as string
 export const API_ADMIN_PRODUCT_DETAIL = `${API_ADMIN_PRODUCTS}/product-detail` as string
+export const API_ADMIN_PRODUCT_BRAND = `${API_ADMIN_PRODUCTS}/brand` as string
+export const API_ADMIN_PRODUCT_OPERATING_SYSTEM = `${API_ADMIN_PRODUCTS}/operating` as string
