@@ -1,16 +1,16 @@
 import { DefaultResponse, PaginationParams, PaginationResponse } from '@/api/api.common'
 import request from '@/api/request'
-import { API_ADMIN_PRODUCT_CPU } from '@/constants/url'
+import { API_ADMIN_PRODUCT_GPU } from '@/constants/url'
 import { AxiosResponse } from 'axios'
 
-export type ADProductCPURequest = PaginationParams & {
+export type ADProductGPURequest = PaginationParams & {
   brand: string,
   releaseYear: number | undefined,
   generation: string,
   series: string,
 }
 
-export type ADProductCPUCreateUpdateRequest = {
+export type ADProductGPUCreateUpdateRequest = {
   id?: string;
   code: string;
   name: string;
@@ -21,7 +21,7 @@ export type ADProductCPUCreateUpdateRequest = {
   releaseYear: number;
 }
 
-export type ADProductCPUResponse = {
+export type ADProductGPUResponse = {
   id?: string,
   code: string;
   name: string;
@@ -32,31 +32,31 @@ export type ADProductCPUResponse = {
   releaseYear: number;
 }
 
-export const getCPUs = async (params: ADProductCPURequest) => {
+export const getGPUs = async (params: ADProductGPURequest) => {
   const res = await request({
-    url: `${API_ADMIN_PRODUCT_CPU}`,
+    url: `${API_ADMIN_PRODUCT_GPU}`,
     method: 'GET',
     params,
-  }) as AxiosResponse<DefaultResponse<PaginationResponse<Array<ADProductCPUResponse>>>>
+  }) as AxiosResponse<DefaultResponse<PaginationResponse<Array<ADProductGPUResponse>>>>
 
   return res.data;
 }
 
-export const getCPUById = async (id: string) => {
+export const getGPUById = async (id: string) => {
   const res = await request({
-    url: `${API_ADMIN_PRODUCT_CPU}/${id}`,
+    url: `${API_ADMIN_PRODUCT_GPU}/${id}`,
     method: 'GET',
-  }) as AxiosResponse<DefaultResponse<ADProductCPUResponse>>
+  }) as AxiosResponse<DefaultResponse<ADProductGPUResponse>>
 
   return res.data;
 }
 
-export const modifyCPU = async (data: ADProductCPUCreateUpdateRequest) => {
+export const modifyGPU = async (data: ADProductGPUCreateUpdateRequest) => {
   const res = await request({
-    url: `${API_ADMIN_PRODUCT_CPU}`,
+    url: `${API_ADMIN_PRODUCT_GPU}`,
     method: 'POST',
     data
-  }) as AxiosResponse<DefaultResponse<ADProductCPUResponse>>
+  }) as AxiosResponse<DefaultResponse<ADProductGPUResponse>>
 
   return res.data;
 }

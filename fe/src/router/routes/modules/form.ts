@@ -21,6 +21,19 @@ const FORM: AppRouteRecordRaw = {
         requiresAuth: true,
         roles: ['admin'],
       },
+      // children: [
+
+      // ],
+    },
+    {
+      path: '/product-detail/:id',
+      name: 'ProductDetail',
+      component: () => import('@/views/admin/products/product/component/ADProductDetailIndex.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: ['admin'],
+        hideInMenu: true,
+      },
     },
     {
       path: 'color',
