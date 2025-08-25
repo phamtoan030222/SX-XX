@@ -52,7 +52,7 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
 
     @Override
     public ResponseObject<?> modify(ADProductScreenCreateUpdateRequest request) {
-        return request.getId() == null ? create(request) : update(request);
+        return request.getId() == null || request.getId().isEmpty()  ? create(request) : update(request);
     }
 
     private ResponseObject<?> update(ADProductScreenCreateUpdateRequest request) {
@@ -83,6 +83,9 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
         Optional<ScreenResolution> optionalScreenResolution = screenResolutionRepository.findById(request.getIdScreenResolution());
 
         if(optionalScreenResolution.isEmpty()) return ResponseObject.errorForward("Update fail!!! screen resolution not found", HttpStatus.NOT_FOUND);
+
+        Optional<Screen> screenOptional = screenRepository.findByCode(request.getCode());
+        if(screenOptional.isPresent()) return ResponseObject.errorForward("Update fail!!! Duplicate code", HttpStatus.CONFLICT);
 
         screen.setCode(request.getCode());
         screen.setName(request.getName());

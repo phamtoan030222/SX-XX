@@ -3,6 +3,7 @@ package com.sd20201.datn.core.admin.products.screen.repository;
 import com.sd20201.datn.core.admin.products.screen.model.request.ADProductScreenRequest;
 import com.sd20201.datn.core.admin.products.screen.model.response.ADProductScreenDetailResponse;
 import com.sd20201.datn.core.admin.products.screen.model.response.ADProductScreenResponse;
+import com.sd20201.datn.entity.Screen;
 import com.sd20201.datn.repository.ScreenRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,5 +60,7 @@ public interface ADProductScreenRepository extends ScreenRepository {
     where s.id = :id
     """)
     Optional<ADProductScreenDetailResponse> getScreenById(@Param("id") String id);
+
+    Optional<Screen> findByCode(String code);
 
 }
