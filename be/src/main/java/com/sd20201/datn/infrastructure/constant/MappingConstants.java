@@ -36,4 +36,5 @@ public class MappingConstants {
     public static final String API_ADMIN_PREFIX_PRODUCTS_DETAIL = API_ADMIN_PREFIX_PRODUCTS + "/product-detail";
     public static final String API_ADMIN_PREFIX_PRODUCTS_BRAND =  API_ADMIN_PREFIX_PRODUCTS + "/brand";
     public static final String API_ADMIN_PREFIX_PRODUCTS_OPERATING =  API_ADMIN_PREFIX_PRODUCTS + "/operating";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_BATTERY =   API_ADMIN_PREFIX_PRODUCTS + "/battery";
 }

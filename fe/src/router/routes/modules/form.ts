@@ -125,6 +125,16 @@ const FORM: AppRouteRecordRaw = {
         roles: ['admin'],
       },
     },
+    {
+      path: 'battery',
+      name: 'Battery',
+      component: () => import('@/views/admin/products/battery/index.vue'),
+      meta: {
+        locale: 'menu.products.battery',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
   ],
 }
 
