@@ -11,6 +11,7 @@ export interface ParamsGetMaterial extends PaginationParams {
 // ===== Kiểu dữ liệu Material trả về =====
 export interface MaterialResponse extends ResponseList {
   id: string
+  code: string
   status: string
   topCaseMaterial?: string
   bottomCaseMaterial?: string
@@ -19,6 +20,7 @@ export interface MaterialResponse extends ResponseList {
 
 // ===== Payload tạo Material =====
 export interface CreateMaterialRequest {
+  code?: string
   topCaseMaterial?: string
   bottomCaseMaterial?: string
   keyboardMaterial?: string

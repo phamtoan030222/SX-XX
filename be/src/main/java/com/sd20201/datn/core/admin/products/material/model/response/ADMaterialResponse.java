@@ -6,5 +6,5 @@ public interface ADMaterialResponse {
     String getTopCaseMaterial();
     String getBottomCaseMaterial();
     String getKeyboardMaterial();
-    String getDescription();
+    String getCode();
 }

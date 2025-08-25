@@ -15,6 +15,7 @@ public interface ADMaterialRepository extends MaterialRepository {
     @Query(
             value = """
             SELECT m.id AS id,
+                    m.code AS code,
                    m.topCaseMaterial AS topCaseMaterial,
                    m.bottomCaseMaterial AS bottomCaseMaterial,
                    m.keyboardMaterial AS keyboardMaterial,

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class ADCreateMaterialRequest {
 
+    private String code;
+
     // Chất liệu nắp trên của laptop
     private String topCaseMaterial;
 

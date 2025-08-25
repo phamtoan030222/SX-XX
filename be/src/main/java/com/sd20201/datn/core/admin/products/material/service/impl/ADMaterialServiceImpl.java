@@ -36,6 +36,7 @@ public class ADMaterialServiceImpl implements ADMaterialService {
     @Override
     public ResponseObject<?> createMaterial(ADCreateMaterialRequest request) {
         Material material = new Material();
+        material.setCode(request.getCode());
         material.setTopCaseMaterial(request.getTopCaseMaterial());
         material.setBottomCaseMaterial(request.getBottomCaseMaterial());
         material.setKeyboardMaterial(request.getKeyboardMaterial());
@@ -75,6 +76,7 @@ public class ADMaterialServiceImpl implements ADMaterialService {
         }
 
         Material material = optionalMaterial.get();
+        material.setCode(request.getCode());
         material.setTopCaseMaterial(request.getTopCaseMaterial());
         material.setBottomCaseMaterial(request.getBottomCaseMaterial());
         material.setKeyboardMaterial(request.getKeyboardMaterial());

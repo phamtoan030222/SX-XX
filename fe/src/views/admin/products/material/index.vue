@@ -36,12 +36,14 @@ const selectedMaterial = ref<MaterialResponse | null>(null)
 
 const formRef = ref<FormInstance>()
 const formState = reactive<CreateMaterialRequest>({
+  code: '',
   topCaseMaterial: '',
   bottomCaseMaterial: '',
   keyboardMaterial: '',
 })
 
 const rules: Record<string, FieldRule[]> = {
+  code: [{required: true, message: 'Vui lòng nhập mã chất liệu', trigger: ['blur', 'submit']}],
   topCaseMaterial: [{ required: true, message: 'Vui lòng nhập chất liệu mặt trên', trigger: ['blur', 'submit'] }],
   bottomCaseMaterial: [{ required: true, message: 'Vui lòng nhập chất liệu mặt dưới', trigger: ['blur', 'submit'] }],
   keyboardMaterial: [{ required: true, message: 'Vui lòng nhập chất liệu bàn phím', trigger: ['blur', 'submit'] }],
@@ -70,6 +72,7 @@ function openCreateModal() {
   isEdit.value = false
   selectedMaterial.value = null
   Object.assign(formState, {
+    code: '',
     topCaseMaterial: '',
     bottomCaseMaterial: '',
     keyboardMaterial: '',
@@ -82,6 +85,7 @@ function openEditModal(material: MaterialResponse) {
   isEdit.value = true
   selectedMaterial.value = material
   Object.assign(formState, {
+    code: material.code,
     topCaseMaterial: material.topCaseMaterial,
     bottomCaseMaterial: material.bottomCaseMaterial,
     keyboardMaterial: material.keyboardMaterial,
@@ -124,6 +128,7 @@ async function toggleStatus(record: MaterialResponse, checked: boolean) {
 // ====== Columns ======
 const columns = [
   { title: 'STT', dataIndex: 'stt' },
+  {title: 'Mã chất liệu', dataIndex: 'code'},
   { title: 'Mặt trên', dataIndex: 'topCaseMaterial' },
   { title: 'Mặt dưới', dataIndex: 'bottomCaseMaterial' },
   { title: 'Bàn phím', dataIndex: 'keyboardMaterial' },
@@ -227,6 +232,9 @@ onMounted(() => {
       width="500px"
     >
       <a-form ref="formRef" :model="formState" :rules="rules" layout="vertical" label-align="left">
+      <a-form-item field="code" label="Mã chất liệu">
+          <a-input v-model="formState.code" placeholder="Nhập mã chất liệu" />
+        </a-form-item>
         <a-form-item field="topCaseMaterial" label="Chất liệu mặt trên">
           <a-input v-model="formState.topCaseMaterial" placeholder="Nhập chất liệu mặt trên" />
         </a-form-item>
