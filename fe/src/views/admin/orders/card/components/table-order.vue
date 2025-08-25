@@ -40,11 +40,7 @@
 import { reactive } from 'vue'
 import { IconDelete, IconScan, IconPlus } from '@arco-design/web-vue/es/icon'
 
-const tableData = reactive([
-  { id: 1, stt: 1, product: 'Del 15 Pro', imei: '123456789012345', price: 35000000 },
-  { id: 2, stt: 2, product: 'Samsung S24 Ultra', imei: '987654321098765', price: 32000000 },
-  { id: 3, stt: 3, product: 'ASUS Find X7', imei: '112233445566778', price: 25000000 },
-])
+const tableData = reactive([])
 
 // Hàm định dạng giá tiền
 const formatPrice = (price) => {
@@ -54,7 +50,7 @@ const formatPrice = (price) => {
 const columns = [
   { title: 'STT', dataIndex: 'stt', width: 60, align: 'center' },
   { title: 'Sản phẩm', dataIndex: 'product', width: 500, align: 'center' },
-  { title: 'IMEI', dataIndex: 'imei', width: 200, align: 'center' },
+  { title: 'IMEl', dataIndex: 'imel', width: 200, align: 'center' },
   {
     title: 'Đơn giá',
     dataIndex: 'price',

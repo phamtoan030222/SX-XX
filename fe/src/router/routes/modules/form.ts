@@ -47,7 +47,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Storage',
       component: () => import('@/views/admin/products/storage/index.vue'),
       meta: {
-        locale: 'menu.products.storage',
+        locale: 'menu.products.hardDrive',
         requiresAuth: true,
         roles: ['admin'],
       },
