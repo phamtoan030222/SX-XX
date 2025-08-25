@@ -1,3 +1,4 @@
 export default {
-  'menu.products.storage': 'Ổ cứng',
+  'menu.products.hardDrive': 'Ổ cứng',
+  'menu.products.hardDrive.search': 'Nhập tên để tìm kiếm',
 }

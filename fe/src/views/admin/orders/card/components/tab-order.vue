@@ -17,7 +17,7 @@ import InfoClient from './info-client.vue'
 import InfoOrder from './info-order.vue'
 
 // Dữ liệu các tab
-const data = ref([{ key: '1', title: 'HD-1', content: 'Nội dung tab mặc định' }])
+const data = ref([])
 
 const handleAdd = () => {
   const number = Math.floor(Math.random() * 1000)

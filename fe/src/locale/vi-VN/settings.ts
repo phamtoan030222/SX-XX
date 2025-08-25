@@ -1,4 +1,5 @@
 export default {
+  // ================= Cấu hình trang =================
   'settings.title': 'Cấu hình trang',
   'settings.themeColor': 'Màu chủ đề',
   'settings.content': 'Khu vực nội dung',
@@ -25,4 +26,34 @@ export default {
   'settings.color.tooltip':
     '10 gam màu được tạo dựa trên màu chủ đề (Sao chép cấu hình vào dự án để màu chủ đề áp dụng cho cả chế độ sáng / tối)',
   'settings.menuFromServer': 'Menu lấy từ máy chủ',
+
+  // ================= Pagination =================
+  'pagination.total': 'Tổng số {0}',
+  'pagination.goto': 'Tới',
+  'pagination.page': 'Trang',
+  'pagination.pageSize': ' / Trang',
+
+  // ================= Table =================
+  'table.emptyText': 'Không có dữ liệu',
+  'table.loading': 'Đang tải...',
+
+  // ================= Form =================
+  'form.submit': 'Gửi',
+  'form.reset': 'Đặt lại',
+  'form.required': 'Trường này là bắt buộc',
+
+  // ================= Button =================
+  'button.ok': 'Đồng ý',
+  'button.cancel': 'Hủy',
+  'button.close': 'Đóng',
+  'button.save': 'Lưu',
+  'button.edit': 'Chỉnh sửa',
+  'button.delete': 'Xóa',
+
+  // ================= Modal / Dialog =================
+  'modal.confirm': 'Xác nhận',
+  'modal.warning': 'Cảnh báo',
+  'modal.info': 'Thông tin',
+  'modal.success': 'Thành công',
+  'modal.error': 'Lỗi',
 }

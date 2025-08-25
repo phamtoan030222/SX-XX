@@ -22,16 +22,6 @@ const LIST: AppRouteRecordRaw = {
         roles: ['*'],
       },
     },
-    {
-      path: 'card',
-      name: 'Card',
-      component: () => import('@/views/admin/orders/card/index.vue'),
-      meta: {
-        locale: 'menu.list.cardList',
-        requiresAuth: true,
-        roles: ['*'],
-      },
-    },
   ],
 }
 

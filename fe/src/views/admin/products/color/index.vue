@@ -184,9 +184,9 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.products', 'menu.form.color']" />
+    <Breadcrumb :items="['menu.products', 'menu.products.color']" />
 
-    <a-card class="general-card" :title="$t('menu.form.color')">
+    <a-card class="general-card" :title="$t('menu.products.color')">
       <a-row>
         <a-col :flex="1">
           <a-row :gutter="16">
@@ -228,7 +228,7 @@ onMounted(() => {
               pageSize: pagination.pageSize,
               total: pagination.total,
               showTotal: true,
-              showJumper: true,
+              // showJumper: true,
             }"
             @page-change="
               (page) => {

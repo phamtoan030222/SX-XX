@@ -21,6 +21,19 @@ const FORM: AppRouteRecordRaw = {
         requiresAuth: true,
         roles: ['admin'],
       },
+      // children: [
+
+      // ],
+    },
+    {
+      path: '/product-detail/:id',
+      name: 'ProductDetail',
+      component: () => import('@/views/admin/products/product/component/ADProductDetailIndex.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: ['admin'],
+        hideInMenu: true,
+      },
     },
     {
       path: 'color',
@@ -47,7 +60,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Storage',
       component: () => import('@/views/admin/products/storage/index.vue'),
       meta: {
-        locale: 'menu.products.storage',
+        locale: 'menu.products.hardDrive',
         requiresAuth: true,
         roles: ['admin'],
       },
@@ -108,6 +121,16 @@ const FORM: AppRouteRecordRaw = {
       component: () => import('@/views/admin/products/operating/index.vue'),
       meta: {
         locale: 'menu.products.operating',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
+    {
+      path: 'battery',
+      name: 'Battery',
+      component: () => import('@/views/admin/products/battery/index.vue'),
+      meta: {
+        locale: 'menu.products.battery',
         requiresAuth: true,
         roles: ['admin'],
       },

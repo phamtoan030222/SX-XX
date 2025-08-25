@@ -20,13 +20,20 @@ import java.io.Serializable;
 @Table(name = "material")
 public class Material extends PrimaryEntity implements Serializable {
 
+    // Chất liệu nắp trên của laptop
     @Column(length = EntityProperties.LENGTH_CODE)
     private String topCaseMaterial;
 
+    // Chất liệu đáy laptop
     @Column(length = EntityProperties.LENGTH_CODE)
     private String bottomCaseMaterial;
 
+    // Chất liệu bàn phím
     @Column(length = EntityProperties.LENGTH_CODE)
-    private String keybroadMaterial;
+    private String keyboardMaterial;
+
+    // Mô tả thêm nếu cần
+    @Column(length = EntityProperties.LENGTH_DESCRIPTION)
+    private String description;
 
 }

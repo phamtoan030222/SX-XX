@@ -47,7 +47,7 @@
   "docthis.enableHungarianNotationEvaluation": true,
   "docthis.inferTypesFromNames": true,
   "vetur.format.defaultFormatter.html": "prettier",
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "afterDelay",
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
   },

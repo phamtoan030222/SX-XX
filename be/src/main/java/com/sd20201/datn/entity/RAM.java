@@ -30,7 +30,9 @@ public class RAM extends PrimaryEntity implements Serializable {
 
     private Integer busSpeed;
 
-    private Integer slotCount;
+    private Integer slotConFig;
+
+    private Integer maxSupported;
 
     @Column(length = EntityProperties.LENGTH_DESCRIPTION)
     private String description;
