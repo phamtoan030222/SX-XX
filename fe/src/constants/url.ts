@@ -7,3 +7,6 @@ export const PREFIX_API_ADMIN = `${API_URL}/admin` as string
 
 export const API_ADMIN_PRODUCTS = `${PREFIX_API_ADMIN}/products` as string
 export const API_ADMIN_COLOR = `${API_ADMIN_PRODUCTS}/color` as string
+
+
+export const API_ADMIN_DISCOUNT = `${PREFIX_API_ADMIN}/discounts/discount` as string

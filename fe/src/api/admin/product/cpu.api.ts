@@ -7,8 +7,4 @@ type ADProductCPUResponse = {
   id: string
 }
 
-export const getCPUs = async (params: ADProductCPURequest) => {
-  const res = await request({
-    url,
-  })
-}
+
