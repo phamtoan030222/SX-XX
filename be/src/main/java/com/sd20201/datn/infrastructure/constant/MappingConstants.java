@@ -26,8 +26,8 @@ public class MappingConstants {
     public static final String API_ADMIN_PREFIX = API_VERSION_PREFIX + ADMIN;
     public static final String API_ADMIN_PREFIX_PRODUCTS = API_ADMIN_PREFIX + "/products";
     public static final String API_ADMIN_PREFIX_PRODUCTS_COLOR = API_ADMIN_PREFIX_PRODUCTS + "/color";
-    public static final String API_ADMIN_PRODUCT = API_ADMIN_PREFIX + "/product";
-    public static final String API_ADMIN_PRODUCT_CPU = API_ADMIN_PRODUCT + "/cpu";
-    public static final String API_ADMIN_PRODUCT_GPU = API_ADMIN_PRODUCT + "/gpu";
-    public static final String API_ADMIN_PRODUCT_SCREEN = API_ADMIN_PRODUCT + "/screen";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_CPU = API_ADMIN_PREFIX_PRODUCTS + "/cpu";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_GPU = API_ADMIN_PREFIX_PRODUCTS + "/gpu";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_SCREEN = API_ADMIN_PREFIX_PRODUCTS + "/screen";
+    public static final String API_ADMIN_PREFIX_PRODUCTS_DETAIL = API_ADMIN_PREFIX_PRODUCTS + "/product-detail";
 }

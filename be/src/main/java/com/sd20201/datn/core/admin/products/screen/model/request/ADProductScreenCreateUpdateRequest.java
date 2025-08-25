@@ -21,7 +21,7 @@ public class ADProductScreenCreateUpdateRequest {
 
     private String idScreenResolution;
 
-    private String material;
+    private String panelType;
 
     private String technology;
 

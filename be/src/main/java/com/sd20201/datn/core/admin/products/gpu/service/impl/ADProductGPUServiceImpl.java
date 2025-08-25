@@ -4,11 +4,13 @@ import com.sd20201.datn.core.admin.products.gpu.model.request.ADProductGPUCreate
 import com.sd20201.datn.core.admin.products.gpu.model.request.ADProductGPURequest;
 import com.sd20201.datn.core.admin.products.gpu.repository.ADProductGPURepository;
 import com.sd20201.datn.core.admin.products.gpu.service.ADProductGPUService;
+import com.sd20201.datn.core.common.base.PageableObject;
 import com.sd20201.datn.core.common.base.ResponseObject;
 import com.sd20201.datn.entity.GPU;
 import com.sd20201.datn.infrastructure.constant.EntityStatus;
 import com.sd20201.datn.utils.Helper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class ADProductGPUServiceImpl implements ADProductGPUService {
     @Override
     public ResponseObject<?> getGPUs(ADProductGPURequest request) {
         return ResponseObject.successForward(
-                gpuRepository.getGPUs(Helper.createPageable(request), request),
+                PageableObject.of(gpuRepository.getGPUs(Helper.createPageable(request), request)),
                 "OKE"
         );
     }

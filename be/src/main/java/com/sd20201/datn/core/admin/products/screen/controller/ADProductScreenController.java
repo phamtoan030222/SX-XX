@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(MappingConstants.API_ADMIN_PRODUCT_SCREEN)
+@RequestMapping(MappingConstants.API_ADMIN_PREFIX_PRODUCTS_SCREEN)
 @RequiredArgsConstructor
 public class ADProductScreenController {
 
@@ -26,8 +26,13 @@ public class ADProductScreenController {
         return Helper.createResponseEntity(screenService.getScreens(request));
     }
 
+    @GetMapping("/resolutions")
+    ResponseEntity<?> getResolutionScreens() {
+        return Helper.createResponseEntity(screenService.getResolutionScreens());
+    }
+
     @GetMapping("/{id}")
-    ResponseEntity<?> getGPU(@PathVariable String id) {
+    ResponseEntity<?> getScreen(@PathVariable String id) {
         return Helper.createResponseEntity(screenService.getDetail(id));
     }
 
@@ -37,7 +42,7 @@ public class ADProductScreenController {
     }
 
     @PostMapping
-    ResponseEntity<?> modifyGpu(@RequestBody ADProductScreenCreateUpdateRequest request) {
+    ResponseEntity<?> modifyScreen(@RequestBody ADProductScreenCreateUpdateRequest request) {
         return Helper.createResponseEntity(screenService.modify(request));
     }
 

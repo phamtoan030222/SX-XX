@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(MappingConstants.API_ADMIN_PRODUCT_CPU)
+@RequestMapping(MappingConstants.API_ADMIN_PREFIX_PRODUCTS_CPU)
 @RequiredArgsConstructor
 public class ADProductCPUController {
 

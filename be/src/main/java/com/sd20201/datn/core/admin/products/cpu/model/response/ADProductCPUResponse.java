@@ -18,4 +18,6 @@ public interface ADProductCPUResponse extends IsIdentify {
 
     Integer getReleaseYear();
 
+    Long getCreatedDate();
+
 }

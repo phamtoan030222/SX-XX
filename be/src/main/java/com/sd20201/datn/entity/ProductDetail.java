@@ -23,14 +23,14 @@ import java.math.BigDecimal;
 @Getter
 @Entity
 @Table(name = "product_detail")
-public class ProductDetail extends PrimaryEntity implements Serializable {
+public class ProductDetail extends PrimaryEntity implements Serializable, Cloneable {
 
     @ManyToOne
     @JoinColumn(name="id_product", referencedColumnName = "id")
-    private Product Product;
+    private Product product;
 
     @OneToOne
-    @JoinColumn(name = "id_imei", unique = true, nullable = false)
+    @JoinColumn(name = "id_imei")
     private IMEI iMEI;
 
     @ManyToOne
@@ -61,4 +61,9 @@ public class ProductDetail extends PrimaryEntity implements Serializable {
 
     @Column(length = EntityProperties.LENGTH_DESCRIPTION)
     private String description;
+
+    @Override
+    public ProductDetail clone() throws CloneNotSupportedException {
+        return (ProductDetail) super.clone();
+    }
 }

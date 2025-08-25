@@ -5,6 +5,7 @@ import com.sd20201.datn.core.admin.products.screen.model.request.ADProductScreen
 import com.sd20201.datn.core.admin.products.screen.repository.ADProductScreenRepository;
 import com.sd20201.datn.core.admin.products.screen.repository.ADProductScreenResolutionRepository;
 import com.sd20201.datn.core.admin.products.screen.service.ADProductScreenService;
+import com.sd20201.datn.core.common.base.PageableObject;
 import com.sd20201.datn.core.common.base.ResponseObject;
 import com.sd20201.datn.entity.Screen;
 import com.sd20201.datn.entity.ScreenResolution;
@@ -27,7 +28,7 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
     @Override
     public ResponseObject<?> getScreens(ADProductScreenRequest request) {
         return ResponseObject.successForward(
-                screenRepository.getScreens(Helper.createPageable(request), request),
+                PageableObject.of(screenRepository.getScreens(Helper.createPageable(request), request)),
                 "OKE"
         );
     }
@@ -69,7 +70,7 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
         screen.setCode(request.getCode());
         screen.setName(request.getName());
         screen.setPhysicalSize(request.getPhysicalSize());
-        screen.setMaterial(request.getMaterial());
+        screen.setPanelType(request.getPanelType());
         screen.setResolution(screenResolution);
         screen.setTechnology(request.getTechnology());
 
@@ -79,17 +80,22 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
     private ResponseObject<?> create(ADProductScreenCreateUpdateRequest request) {
         Screen screen = new Screen();
 
-        Optional<ScreenResolution> optionalScreenResolution = screenResolutionRepository.findById(request.getId());
+        Optional<ScreenResolution> optionalScreenResolution = screenResolutionRepository.findById(request.getIdScreenResolution());
 
         if(optionalScreenResolution.isEmpty()) return ResponseObject.errorForward("Update fail!!! screen resolution not found", HttpStatus.NOT_FOUND);
 
         screen.setCode(request.getCode());
         screen.setName(request.getName());
         screen.setPhysicalSize(request.getPhysicalSize());
-        screen.setMaterial(request.getMaterial());
+        screen.setPanelType(request.getPanelType());
         screen.setResolution(optionalScreenResolution.get());
         screen.setTechnology(request.getTechnology());
 
         return ResponseObject.successForward(screenRepository.save(screen), "Screen created successfully");
+    }
+
+    @Override
+    public ResponseObject<?> getResolutionScreens() {
+        return ResponseObject.successForward(screenResolutionRepository.getScreenResolutions(), "Get resolution screens list successfully");
     }
 }

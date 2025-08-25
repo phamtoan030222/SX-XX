@@ -4,6 +4,7 @@ import com.sd20201.datn.core.admin.products.cpu.model.request.ADProductCPUCreate
 import com.sd20201.datn.core.admin.products.cpu.model.request.ADProductCPURequest;
 import com.sd20201.datn.core.admin.products.cpu.repository.ADProductCPURepository;
 import com.sd20201.datn.core.admin.products.cpu.service.ADProductCPUService;
+import com.sd20201.datn.core.common.base.PageableObject;
 import com.sd20201.datn.core.common.base.ResponseObject;
 import com.sd20201.datn.entity.CPU;
 import com.sd20201.datn.infrastructure.constant.EntityStatus;
@@ -23,7 +24,7 @@ public class ADProductCPUServiceImpl implements ADProductCPUService {
     @Override
     public ResponseObject<?> getCPUs(ADProductCPURequest request) {
         return new ResponseObject(
-                cpuRepository.getCPUs(Helper.createPageable(request), request),
+                PageableObject.of(cpuRepository.getCPUs(Helper.createPageable(request, "created_date"), request)),
                 HttpStatus.OK,
                 "OKE"
         );
@@ -53,6 +54,11 @@ public class ADProductCPUServiceImpl implements ADProductCPUService {
     }
 
     private Object createCPU(ADProductCPUCreateUpdateRequest request) {
+
+        Optional<CPU> optionalCPU = cpuRepository.getCPUByCode(request.getCode());
+
+        if(optionalCPU.isPresent()) return ResponseObject.errorForward("Create fail!!! CPU is existed", HttpStatus.NOT_FOUND);
+
         CPU cpu = new CPU();
 
         cpu.setName(request.getName());

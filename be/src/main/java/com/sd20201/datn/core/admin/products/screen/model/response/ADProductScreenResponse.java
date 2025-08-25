@@ -10,9 +10,9 @@ public interface ADProductScreenResponse extends IsIdentify {
 
     Float getPhysicalSize();
 
-    String getIdScreenResolution();
+    String getScreenResolution();
 
-    String getMaterial();
+    String getPanelType();
 
     String getTechnology();
 
