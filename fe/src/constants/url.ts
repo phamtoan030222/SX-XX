@@ -10,3 +10,8 @@ export const API_ADMIN_COLOR = `${API_ADMIN_PRODUCTS}/color` as string
 export const API_ADMIN_RAM = `${API_ADMIN_PRODUCTS}/ram` as string
 export const API_ADMIN_HARD_DRIVE = `${API_ADMIN_PRODUCTS}/harddrive` as string
 export const API_ADMIN_MATERIAL = `${API_ADMIN_PRODUCTS}/material` as string
+
+export const API_ADMIN_PRODUCT_CPU = `${API_ADMIN_PRODUCTS}/cpu` as string
+export const API_ADMIN_PRODUCT_GPU = `${API_ADMIN_PRODUCTS}/gpu` as string
+export const API_ADMIN_PRODUCT_SCREEN = `${API_ADMIN_PRODUCTS}/screen` as string
+export const API_ADMIN_PRODUCT_DETAIL = `${API_ADMIN_PRODUCTS}/product-detail` as string

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class Helper {
     }
 
     public static Pageable createPageable(PageableRequest request) {
-        return createPageable(request, "created_date", "DESC");
+        return createPageable(request, "createdDate", "DESC");
     }
 
 
@@ -140,6 +141,10 @@ public class Helper {
 
         // Thay thế tất cả khoảng trắng liên tiếp bằng dấu gạch dưới
         return withoutAccentString.replaceAll("\\s+", "_");
+    }
+
+    public static String generateCodeProductDetail() {
+        return "PD" + UUID.randomUUID().toString().substring(0, 6).toUpperCase();
     }
 
 }

@@ -1,294 +1,278 @@
-<script setup lang="tsx">
-import { getAllColors, updateColorStatus, createColor, updateColor, type ColorResponse, type ParamsGetColor } from '@/api/colorApi'
-import { Message, type FieldRule, type FormInstance, Switch } from '@arco-design/web-vue'
-import { onMounted, reactive, ref, watch } from 'vue'
-
-// ====== State ======
-const search = ref('')
-const selectedKeys = ref<(string | number)[]>([])
-
-const rowSelection = reactive({
-  type: 'checkbox',
-  showCheckedAll: true,
-  onlyCurrent: false,
-})
-
-const pagination = reactive({
-  current: 1,
-  pageSize: 5,
-  total: 0,
-})
-
-const data = ref<ColorResponse[]>([])
-
-// ====== Methods ======
-async function fetchColors() {
-  const params: ParamsGetColor = {
-    page: pagination.current,
-    size: pagination.pageSize,
-    q: search.value,
-  }
-  try {
-    const res = await getAllColors(params)
-    data.value = res.items.map((item, index) => ({
-      ...item,
-      stt: (pagination.current - 1) * pagination.pageSize + index + 1,
-    }))
-    pagination.total = res.totalItems
-  } catch {
-    Message.error('Lấy danh sách màu thất bại')
-  }
-}
-
-async function toggleStatus(record: ColorResponse, checked: boolean) {
-  try {
-    await updateColorStatus(record.id, checked ? 'ACTIVE' : 'INACTIVE')
-    record.colorStatus = checked ? 'ACTIVE' : 'INACTIVE'
-    Message.success('Cập nhật trạng thái thành công')
-  } catch {
-    Message.error('Cập nhật trạng thái thất bại')
-  }
-}
-
-// ====== Modal & Form State ======
-const modalVisible = ref(false)
-const isEdit = ref(false)
-const selectedColor = ref<ColorResponse | null>(null)
-
-const formRef = ref<FormInstance>()
-const formState = reactive({
-  colorName: '',
-  colorCode: '#000000',
-})
-const rules: Record<string, FieldRule[]> = {
-  colorName: [
-    {
-      required: true,
-      validator: (_, value) => {
-        if (!String(value || '').trim()) {
-          return Promise.reject(new Error('Tên màu không được để trống'))
-        }
-        return Promise.resolve()
-      },
-      trigger: ['blur', 'input', 'submit'],
-    },
-  ],
-  colorCode: [{ required: true, message: 'Vui lòng chọn mã màu', trigger: ['change', 'submit'] }],
-}
-
-const loading = ref(false)
-
-function openCreateModal() {
-  isEdit.value = false
-  selectedColor.value = null
-  Object.assign(formState, { colorName: '', colorCode: '#000000' })
-  formRef.value?.clearValidate()
-  modalVisible.value = true
-}
-
-function openEditModal(record: ColorResponse) {
-  isEdit.value = true
-  selectedColor.value = record
-  Object.assign(formState, { colorName: record.colorName, colorCode: record.colorCode })
-  formRef.value?.clearValidate()
-  modalVisible.value = true
-}
-
-const handleOk = async () => {
-  loading.value = true
-  try {
-    await formRef.value?.validate()
-    const payload = {
-      colorName: String(formState.colorName || '').trim(),
-      colorCode: formState.colorCode,
-    }
-
-    if (isEdit.value && selectedColor.value) {
-      await updateColor(selectedColor.value.id, payload)
-      Message.success('Cập nhật màu sắc thành công')
-    } else {
-      await createColor(payload)
-      Message.success('Thêm mới màu sắc thành công')
-    }
-
-    modalVisible.value = false
-    fetchColors()
-  } catch (err: any) {
-    if (err?.message) {
-      Message.error(err.message)
-    } else {
-      Message.error('Đã có lỗi xảy ra, vui lòng thử lại')
-    }
-  } finally {
-    loading.value = false
-  }
-}
-
-const handleCancel = () => {
-  modalVisible.value = false
-}
-
-// ====== Columns ======
-const columns = [
-  { title: 'STT', dataIndex: 'stt' },
-  { title: 'Tên màu', dataIndex: 'colorName' },
-  {
-    title: 'Mã màu',
-    dataIndex: 'colorCode',
-    render: ({ record }: { record: ColorResponse }) => (
-      <div
-        style={{
-          backgroundColor: record.colorCode,
-          width: '30px',
-          height: '30px',
-          borderRadius: '4px',
-          border: '1px solid #ddd',
-        }}
-      />
-    ),
-  },
-  {
-    title: 'Trạng thái',
-    dataIndex: 'colorStatus',
-    render: ({ record }: { record: ColorResponse }) => (
-      <Switch modelValue={record.colorStatus === 'ACTIVE'} onChange={(checked: boolean) => toggleStatus(record, checked)} />
-    ),
-  },
-
-  {
-    title: 'Hành động',
-    dataIndex: 'action',
-    render: ({ record }: { record: ColorResponse }) => (
-      <a-button type='text' onClick={() => openEditModal(record)}>
-        Chỉnh sửa
-      </a-button>
-    ),
-  },
-]
-
-// ====== Search debounce ======
-let debounceTimer: number | null = null
-watch(search, () => {
-  if (debounceTimer) clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(() => {
-    pagination.current = 1
-    fetchColors()
-  }, 500) as unknown as number
-})
-
-// ====== Mounted ======
-onMounted(() => {
-  fetchColors()
-})
-</script>
-
 <template>
   <div class="container">
-    <Breadcrumb :items="['menu.products', 'menu.form.color']" />
 
-    <a-card class="general-card" :title="$t('menu.form.color')">
-      <a-row>
-        <a-col :flex="1">
-          <a-row :gutter="16">
-            <a-col :span="8">
-              <a-input v-model="search" :placeholder="$t('search.placeholder')" allow-clear />
-            </a-col>
-            <a-col :span="8">
-              <a-button @click="() => Message.info('Export demo')">
-                <template #icon>
-                  <icon-download />
-                </template>
-                {{ $t('export.excel') }}
-              </a-button>
-            </a-col>
-            <a-col :span="8">
-              <a-button @click="openCreateModal" class="active">
-                <template #icon>
-                  <icon-plus />
-                </template>
-                {{ $t('button.addNew') }}
-              </a-button>
-            </a-col>
-          </a-row>
-        </a-col>
-      </a-row>
+    <Breadcrumb :items="['Sản phẩm']" />
+    <a-spin :loading="loading" style="width: 100%">
+      <a-card class="general-card">
+        <a-row class="mb-20px pt-20px" :gutter="12">
+          <a-col :span="8">
+            <a-input v-model="state.search.q" placeholder="Tìm kiếm"></a-input>
+          </a-col>
 
-      <a-divider style="margin-top: 10px" />
+          <a-col :span="4">
+            <a-select v-model="state.search.brand" placeholder="Chọn hãng">
+              <a-option v-for="brand in state.data.brands" :key="brand.value" :value="brand.value">
+                {{ brand.label }}
+              </a-option>
+            </a-select>
+          </a-col>
 
-      <a-col :span="24">
-        <a-space direction="vertical" size="large" fill>
-          <a-table
-            row-key="id"
-            :columns="columns"
-            :data="data"
-            :row-selection="rowSelection"
-            v-model:selectedKeys="selectedKeys"
-            :pagination="{
-              current: pagination.current,
-              pageSize: pagination.pageSize,
-              total: pagination.total,
-              showTotal: true,
-              showJumper: true,
-            }"
-            @page-change="
-              (page) => {
-                pagination.current = page
-                fetchColors()
-              }
-            "
-          />
-        </a-space>
-      </a-col>
-    </a-card>
+          <a-col :span="4">
+            <a-select v-model="state.search.battery" placeholder="Chọn loại pin">
+              <a-option v-for="battery in state.data.batteries" :key="battery.value" :value="battery.value">
+                {{ battery.label }}
+              </a-option>
+            </a-select>
+          </a-col>
 
-    <!-- Modal thêm/sửa màu -->
-    <a-modal
-      v-model:visible="modalVisible"
-      :title="isEdit ? 'Chỉnh sửa màu sắc' : 'Thêm mới màu sắc'"
-      :ok-loading="loading"
-      @ok="handleOk"
-      @cancel="handleCancel"
-      unmount-on-close
-    >
-      <a-form ref="formRef" :model="formState" :rules="rules" layout="vertical">
-        <a-form-item field="colorName" label="Tên màu">
-          <input v-model="formState.colorName" placeholder="Nhập tên màu" />
-        </a-form-item>
-        <a-form-item field="colorCode" label="Mã màu">
-          <input v-model="formState.colorCode" type="color" style="width: 60px; padding: 0; border: none" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+          <a-col :span="4">
+            <a-select v-model="state.search.screen" placeholder="Chọn màn hình">
+              <a-option v-for="screen in state.data.screens" :key="screen.value" :value="screen.value">
+                {{ screen.label }}
+              </a-option>
+            </a-select>
+          </a-col>
+
+          <a-col :span="3">
+            <a-select v-model="state.search.operatingSystem" placeholder="Chọn hệ điều hành">
+              <a-option v-for="operatingSystem in state.data.operatingSystems" :key="operatingSystem.value" :value="operatingSystem.value">
+                {{ operatingSystem.label }}
+              </a-option>
+            </a-select>
+          </a-col>
+
+          <a-col :span="1">
+            <a-tooltip content="Làm sạch bộ lọc" background-color="#3491FA">
+              <a-button type="primary" shape="circle" @click="refreshFilter"><icon-refresh /></a-button>
+            </a-tooltip>
+          </a-col>
+        </a-row>
+        <div class="line"></div>
+        <a-row justify="end" class="p-20px">
+          <a-space>
+            <a-tooltip content="Thêm sản phẩm" background-color="#3491FA">
+              <a-button type="primary" shape="circle" @click="clickOpenModal()"><icon-plus /></a-button>
+            </a-tooltip>
+          </a-space>
+        </a-row>
+        <a-table
+          :pagination="{
+            current: state.pagination.page,
+            pageSize: state.pagination.size,
+            total: state.pagination.totalPages,
+            showTotal: true,
+            showJumper: true,
+          }"
+          :scroll="{ x: 200, y: 500 }"
+          :data="state.data.products"
+          :columns="columns"
+        >
+          <template #orderNumber="{ rowIndex }">
+            {{ rowIndex + 1 }}
+          </template>
+          <template #action="{ record, rowIndex }">
+            <a-space>
+              <a-tooltip content="Sản phẩm chi tiết" background-color="#3491FA">
+                <a-button type="text" shape="circle" @click="handleClickDetailProduct(record.id)"><icon-info-circle /></a-button>
+              </a-tooltip>
+              <a-tooltip content="Chi tiết sản phẩm" background-color="#3491FA">
+                <a-button type="text" shape="circle" @click="clickOpenModal(record.id, true)"><icon-eye /></a-button>
+              </a-tooltip>
+              <a-tooltip content="Cập nhật sản phẩm" background-color="#3491FA">
+                <a-button type="text" shape="circle" @click="clickOpenModal(record.id)"><icon-edit /></a-button>
+              </a-tooltip>
+            </a-space>
+          </template>
+        </a-table>
+      </a-card>
+    </a-spin>
+
+    <ADProductModal
+      @success="handleSuccessModifyModal"
+      :isDetail="isDetailModal"
+      :isOpen="isOpenModal"
+      :id="productIdSelected"
+      :screens="state.data.screens"
+      :brands="state.data.brands"
+      :batteries="state.data.batteries"
+      :operatingSystems="state.data.operatingSystems"
+      @close="closeModal"
+    />
   </div>
 </template>
+
+<script lang="ts" setup>
+import {
+  ADProductResponse,
+  ADPRPropertiesComboboxResponse,
+  getBatteries,
+  getBrands,
+  getOperatingSystems,
+  getProducts,
+  getScreens,
+} from '@/api/admin/product/product.api'
+import useLoading from '@/hooks/loading'
+import { debounce } from 'lodash'
+import { onMounted, reactive, Ref, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import ADProductModal from './component/ADProductModal.vue'
+
+const { loading, setLoading } = useLoading(false)
+const router = useRouter()
+const state = reactive({
+  search: {
+    q: '',
+    brand: '',
+    screen: '',
+    battery: '',
+    operatingSystem: '',
+  },
+  data: {
+    products: [] as ADProductResponse[],
+    screens: [] as ADPRPropertiesComboboxResponse[],
+    brands: [] as ADPRPropertiesComboboxResponse[],
+    batteries: [] as ADPRPropertiesComboboxResponse[],
+    operatingSystems: [] as ADPRPropertiesComboboxResponse[],
+  },
+  pagination: {
+    page: 1,
+    size: 10,
+    totalPages: undefined as number | undefined,
+  },
+})
+
+const fetchProducts = async () => {
+  const res = await getProducts({
+    page: state.pagination.page,
+    size: state.pagination.size,
+    q: state.search.q,
+    idBrand: state.search.brand,
+    idOperatingSystem: state.search.operatingSystem,
+    idBattery: state.search.battery,
+    idScreen: state.search.screen,
+  })
+
+  state.data.products = res.data.data
+  state.pagination.totalPages = res.data.totalPages
+}
+
+const fetchComboboxProperties = async () => {
+  try {
+    const [screenProperties, brandProperties, batteryProperties, operatingSystemProperties] = await Promise.all([
+      getScreens(),
+      getBrands(),
+      getBatteries(),
+      getOperatingSystems(),
+    ])
+
+    state.data.screens = screenProperties.data
+    state.data.batteries = batteryProperties.data
+    state.data.brands = brandProperties.data
+    state.data.operatingSystems = operatingSystemProperties.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const refreshFilter = () => {
+  state.search.q = ''
+  state.search.battery = ''
+  state.search.brand = ''
+  state.search.screen = ''
+  state.search.operatingSystem = ''
+}
+
+const columns = [
+  { title: '#', name: 'orderNumber', dataIndex: 'orderNumber', width: 50, fixed: 'left', slotName: 'orderNumber' },
+  { title: 'Mã', name: 'code', dataIndex: 'code', width: 100, fixed: 'left', slotName: 'code' },
+  { title: 'Tên ', name: 'name', dataIndex: 'name', width: 150, fixed: 'left', slotName: 'name' },
+  { title: 'Hãng', name: 'brand', dataIndex: 'brand', width: 150, align: 'center', slotName: 'brand' },
+  { title: 'Pin', name: 'battery', dataIndex: 'battery', width: 150, align: 'center', slotName: 'battery' },
+  { title: 'Màn hình', name: 'screen', dataIndex: 'screen', width: 150, align: 'center', slotName: 'screen' },
+  {
+    title: 'Hệ điều hành',
+    name: 'operatingSystem',
+    dataIndex: 'operatingSystem',
+    width: 150,
+    align: 'operatingSystem',
+    slotName: 'operatingSystem',
+  },
+  { title: '', name: 'action', dataIndex: 'action', width: 100, fixed: 'right', slotName: 'action' },
+]
+
+onMounted(() => {
+  fetchProducts()
+  fetchComboboxProperties()
+})
+
+const isOpenModal = ref<boolean>(false)
+
+const isDetailModal: Ref<boolean> = ref(true)
+
+const productIdSelected = ref<string>()
+
+const clickOpenModal = (id?: string, isDetail?: boolean) => {
+  productIdSelected.value = id
+  isOpenModal.value = true
+  isDetailModal.value = isDetail ?? false
+}
+
+const closeModal = () => {
+  isOpenModal.value = false
+}
+
+const handleSuccessModifyModal = () => {
+  fetchProducts()
+  closeModal()
+}
+
+const debounceFetchProducts = debounce(fetchProducts, 300)
+
+watch(
+  () => [state.search.q, state.search.operatingSystem, state.search.battery, state.search.brand, state.search.screen],
+  () => {
+    debounceFetchProducts()
+  }
+)
+
+const handleClickDetailProduct = (idProduct: string) => {
+  router.push({
+    name: 'ProductDetail',
+    params: {
+      id: idProduct,
+    },
+  })
+  console.log(router.getRoutes());
+}
+</script>
 
 <style scoped lang="less">
 .container {
   padding: 0 20px 20px 20px;
 }
 
-:deep(.arco-table-th) {
-  &:last-child {
-    .arco-table-th-item-title {
-      margin-left: 16px;
-    }
-  }
+
+.mt-20px {
+  margin-top: 20px;
 }
-.action-icon {
-  margin-left: 12px;
-  cursor: pointer;
+
+.mb-20px {
+  margin-bottom: 20px;
 }
-.active {
-  color: #0960bd;
-  background-color: #e3f4fc;
+
+.pt-20px {
+  padding-top: 20px;
 }
-.setting {
-  display: flex;
-  align-items: center;
-  width: 200px;
-  .title {
-    margin-left: 12px;
-    cursor: pointer;
-  }
+
+.p-20px {
+  padding: 20px;
+}
+
+.line {
+  border-top: 1px solid #a4a5a8;
+}
+
+.d-inline {
+  display: inline;
 }
 </style>

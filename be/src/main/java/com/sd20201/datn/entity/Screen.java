@@ -24,7 +24,7 @@ public class Screen extends PrimaryEntity implements Serializable {
 
     private String technology;
 
-    private String material;
+    private String panelType;
 
     @ManyToOne
     @JoinColumn(name = "id_screen_resolution", referencedColumnName = "id")
