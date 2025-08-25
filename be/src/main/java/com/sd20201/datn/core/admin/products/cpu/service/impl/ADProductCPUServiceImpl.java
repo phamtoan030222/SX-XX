@@ -32,7 +32,7 @@ public class ADProductCPUServiceImpl implements ADProductCPUService {
 
     @Override
     public ResponseObject<?> modify(ADProductCPUCreateUpdateRequest request) {
-        return new ResponseObject(request.getId() == null ? createCPU(request) : updateCPU(request), HttpStatus.OK, "OKE");
+        return new ResponseObject(request.getId() == null || request.getId().isEmpty() ? createCPU(request) : updateCPU(request), HttpStatus.OK, "OKE");
     }
 
     private Object updateCPU(ADProductCPUCreateUpdateRequest request) {
@@ -57,7 +57,7 @@ public class ADProductCPUServiceImpl implements ADProductCPUService {
 
         Optional<CPU> optionalCPU = cpuRepository.getCPUByCode(request.getCode());
 
-        if(optionalCPU.isPresent()) return ResponseObject.errorForward("Create fail!!! CPU is existed", HttpStatus.NOT_FOUND);
+        if(optionalCPU.isPresent()) return ResponseObject.errorForward("Create fail!!! CPU code is existed", HttpStatus.NOT_FOUND);
 
         CPU cpu = new CPU();
 

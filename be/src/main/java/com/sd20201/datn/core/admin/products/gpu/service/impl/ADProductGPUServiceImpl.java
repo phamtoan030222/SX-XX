@@ -49,7 +49,7 @@ public class ADProductGPUServiceImpl implements ADProductGPUService {
 
     @Override
     public ResponseObject<?> modify(ADProductGPUCreateUpdateRequest request) {
-        return request.getId() == null ? create(request) : update(request);
+        return request.getId() == null || request.getId().isEmpty()  ? create(request) : update(request);
     }
 
     private ResponseObject<?> update(ADProductGPUCreateUpdateRequest request) {
