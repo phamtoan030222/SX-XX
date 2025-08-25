@@ -10,6 +10,7 @@ import com.sd20201.datn.core.common.base.ResponseObject;
 import com.sd20201.datn.entity.Screen;
 import com.sd20201.datn.entity.ScreenResolution;
 import com.sd20201.datn.infrastructure.constant.EntityStatus;
+import com.sd20201.datn.infrastructure.constant.TypeScreenResolution;
 import com.sd20201.datn.utils.Helper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -60,18 +61,13 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
 
         if(optionalScreen.isEmpty()) return ResponseObject.errorForward("Update fail!!! Screen not found", HttpStatus.NOT_FOUND);
 
-        Optional<ScreenResolution> optionalScreenResolution = screenResolutionRepository.findById(request.getIdScreenResolution());
-
-        if(optionalScreenResolution.isEmpty()) return ResponseObject.errorForward("Update fail!!! screen resolution not found", HttpStatus.NOT_FOUND);
-
         Screen screen = optionalScreen.get();
-        ScreenResolution screenResolution = optionalScreenResolution.get();
 
         screen.setCode(request.getCode());
         screen.setName(request.getName());
         screen.setPhysicalSize(request.getPhysicalSize());
         screen.setPanelType(request.getPanelType());
-        screen.setResolution(screenResolution);
+        screen.setResolution(TypeScreenResolution.getByCode(request.getResolution()));
         screen.setTechnology(request.getTechnology());
 
         return ResponseObject.successForward(screenRepository.save(screen), "Screen updated successfully");
@@ -80,10 +76,6 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
     private ResponseObject<?> create(ADProductScreenCreateUpdateRequest request) {
         Screen screen = new Screen();
 
-        Optional<ScreenResolution> optionalScreenResolution = screenResolutionRepository.findById(request.getIdScreenResolution());
-
-        if(optionalScreenResolution.isEmpty()) return ResponseObject.errorForward("Update fail!!! screen resolution not found", HttpStatus.NOT_FOUND);
-
         Optional<Screen> screenOptional = screenRepository.findByCode(request.getCode());
         if(screenOptional.isPresent()) return ResponseObject.errorForward("Update fail!!! Duplicate code", HttpStatus.CONFLICT);
 
@@ -91,14 +83,9 @@ public class ADProductScreenServiceImpl implements ADProductScreenService {
         screen.setName(request.getName());
         screen.setPhysicalSize(request.getPhysicalSize());
         screen.setPanelType(request.getPanelType());
-        screen.setResolution(optionalScreenResolution.get());
+        screen.setResolution(TypeScreenResolution.getByCode(request.getResolution()));
         screen.setTechnology(request.getTechnology());
 
         return ResponseObject.successForward(screenRepository.save(screen), "Screen created successfully");
-    }
-
-    @Override
-    public ResponseObject<?> getResolutionScreens() {
-        return ResponseObject.successForward(screenResolutionRepository.getScreenResolutions(), "Get resolution screens list successfully");
     }
 }

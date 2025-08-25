@@ -21,7 +21,7 @@ public interface ADProductScreenRepository extends ScreenRepository {
             , s.code as code
             , s.name as name
             , s.physicalSize as physicalSize
-            , s.resolution.name as screenResolution
+            , s.resolution as resolution
             , s.panelType as panelType
             , s.technology as technology
     FROM Screen s
@@ -30,9 +30,10 @@ public interface ADProductScreenRepository extends ScreenRepository {
             :#{#request.q} is null or s.name like concat('%',:#{#request.q},'%')
             OR :#{#request.q} is null or s.code like concat('%',:#{#request.q},'%')
         ) AND (:#{#request.technology} is NULL OR s.technology like concat('%',:#{#request.technology},'%'))
-          AND (:#{#request.idScreenResolution} is NULL OR s.resolution.id like concat('%',:#{#request.idScreenResolution},'%'))
+          AND (:#{#request.resolution} is NULL OR s.resolution = :#{#request.resolution})
           AND (:#{#request.physicalSize} is NULL OR s.physicalSize = :#{#request.physicalSize})
           AND (:#{#request.panelType} is NULL OR s.panelType like concat('%',:#{#request.panelType},'%'))
+    ORDER BY s.createdDate DESC
     """, countQuery = """
     SELECT COUNT(1)
     FROM Screen s
@@ -41,7 +42,7 @@ public interface ADProductScreenRepository extends ScreenRepository {
             :#{#request.q} is null or s.name like concat('%',:#{#request.q},'%')
             OR :#{#request.q} is null or s.code like concat('%',:#{#request.q},'%')
         ) AND (:#{#request.technology} is NULL OR s.technology like concat('%',:#{#request.technology},'%'))
-          AND (:#{#request.idScreenResolution} is NULL OR s.resolution.id = :#{#request.idScreenResolution})
+          AND (:#{#request.resolution} is NULL OR s.resolution = :#{#request.resolution})
           AND (:#{#request.physicalSize} is NULL OR s.physicalSize = :#{#request.physicalSize})
           AND (:#{#request.panelType} is NULL OR s.panelType like concat('%',:#{#request.panelType},'%'))
     """)
@@ -53,7 +54,7 @@ public interface ADProductScreenRepository extends ScreenRepository {
             , s.code as code
             , s.name as name
             , s.physicalSize as physicalSize
-            , s.resolution.id as idScreenResolution
+            , s.resolution as resolution
             , s.panelType as panelType
             , s.technology as technology
     FROM Screen s
