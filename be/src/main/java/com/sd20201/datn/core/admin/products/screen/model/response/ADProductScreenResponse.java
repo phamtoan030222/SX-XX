@@ -1,6 +1,7 @@
 package com.sd20201.datn.core.admin.products.screen.model.response;
 
 import com.sd20201.datn.core.common.base.IsIdentify;
+import com.sd20201.datn.infrastructure.constant.TypeScreenResolution;
 
 public interface ADProductScreenResponse extends IsIdentify {
 
@@ -10,7 +11,7 @@ public interface ADProductScreenResponse extends IsIdentify {
 
     Float getPhysicalSize();
 
-    String getScreenResolution();
+    TypeScreenResolution getResolution();
 
     String getPanelType();
 
