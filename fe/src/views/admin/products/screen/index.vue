@@ -24,10 +24,12 @@
           </a-col>
 
           <a-col :span="4">
-            <a-select v-model="state.search.screenResolution" placeholder="Chọn độ phân giải">
-              <template v-for="screenResolution in screenResolutions" :key="screenResolution.id">
-                <a-option :value="screenResolution.id">{{ screenResolution.name }}</a-option>
-              </template>
+            <a-select v-model="state.search.resolution" placeholder="Chọn độ phân giải">
+              <a-option value="1920x1080">1920 x 1080 pixels</a-option>
+              <a-option value="1366x768">1366 x 768 pixels</a-option>
+              <a-option value="2880x1800">2880 x 1800 pixels</a-option>
+              <a-option value="3840x2160">3840 x 2160 pixels</a-option>
+              <a-option value="2560x1440">2560 x 1440 pixels</a-option>
             </a-select>
           </a-col>
 
@@ -89,7 +91,6 @@
       @success="handleSuccessModifyModal"
       :isDetail="isDetailModal"
       :isOpen="isOpenModal"
-      :screenResolutions="screenResolutions"
       :id="ScreenIDSelected"
       @close="closeModal"
     />
@@ -97,15 +98,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, Ref, ref, watch } from 'vue'
-import {
-  ADProductScreenResolutionResponse,
-  ADProductScreenResponse,
-  getScreenResolutions,
-  getScreens,
-} from '@/api/admin/product/screen.api'
-import { debounce } from 'lodash'
+import { ADProductScreenResponse, getScreens } from '@/api/admin/product/screen.api'
 import useLoading from '@/hooks/loading'
+import { debounce } from 'lodash'
+import { onMounted, reactive, Ref, ref, watch } from 'vue'
 import ADProductScreenModal from './component/ADProductScreenModal.vue'
 
 const { loading, setLoading } = useLoading(false)
@@ -113,7 +109,7 @@ const { loading, setLoading } = useLoading(false)
 const state = reactive({
   search: {
     q: '',
-    screenResolution: '' as string | undefined,
+    resolution: '' as string | undefined,
     technology: '',
     panelType: '',
     physicalSize: undefined as number | undefined,
@@ -133,7 +129,7 @@ const fetchScreens = async () => {
     page: state.pagination.page,
     size: state.pagination.size,
     q: state.search.q,
-    idScreenResolution: state.search.screenResolution as string,
+    resolution: state.search.resolution as string,
     physicalSize: state.search.physicalSize as number,
     panelType: state.search.panelType,
     technology: state.search.technology,
@@ -143,17 +139,9 @@ const fetchScreens = async () => {
   state.pagination.totalPages = res.data.totalPages
 }
 
-const screenResolutions: Ref<ADProductScreenResolutionResponse[]> = ref([])
-
-const fetchScreenResolution = async () => {
-  const res = await getScreenResolutions()
-
-  screenResolutions.value = res.data
-}
-
 const refreshFilter = () => {
   state.search.q = ''
-  state.search.screenResolution = undefined
+  state.search.resolution = undefined
   state.search.technology = ''
   state.search.panelType = ''
   state.search.physicalSize = undefined
@@ -166,11 +154,11 @@ const columns = [
   { title: 'Kích thước', name: 'physicalSize', dataIndex: 'physicalSize', width: 150, align: 'center', slotName: 'physicalSize' },
   {
     title: 'Độ phân giải',
-    name: 'screenResolution',
-    dataIndex: 'screenResolution',
+    name: 'resolution',
+    dataIndex: 'resolution',
     width: 150,
     align: 'center',
-    slotName: 'screenResolution',
+    slotName: 'resolution',
   },
   { title: 'Chất liệu tấm nền', name: 'panelType', dataIndex: 'panelType', width: 150, align: 'center', slotName: 'panelType' },
   { title: 'Công nghệ', name: 'technology', dataIndex: 'technology', width: 150, align: 'center', slotName: 'technology' },
@@ -179,7 +167,6 @@ const columns = [
 
 onMounted(() => {
   fetchScreens()
-  fetchScreenResolution()
 })
 
 const isOpenModal = ref<boolean>(false)
@@ -206,7 +193,7 @@ const handleSuccessModifyModal = () => {
 const debounceFetchScreens = debounce(fetchScreens, 300)
 
 watch(
-  () => [state.search.q, state.search.screenResolution, state.search.physicalSize, state.search.technology, state.search.panelType],
+  () => [state.search.q, state.search.resolution, state.search.physicalSize, state.search.technology, state.search.panelType],
   () => {
     debounceFetchScreens()
   }

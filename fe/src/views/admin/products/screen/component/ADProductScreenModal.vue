@@ -31,10 +31,12 @@
           </a-select>
         </a-form-item>
         <a-form-item label="Độ phân giải">
-          <a-select v-model="detailScreen.idScreenResolution" placeholder="Chọn độ phân giải ">
-            <a-option v-for="screenResolution in screenResolutions" :key="screenResolution.id" :value="screenResolution.id">
-              {{ screenResolution.name + ' pixels' }}
-            </a-option>
+          <a-select v-model="detailScreen.resolution" placeholder="Chọn độ phân giải ">
+            <a-option value="1920x1080">1920 x 1080 pixels</a-option>
+            <a-option value="1366x768">1366 x 768 pixels</a-option>
+            <a-option value="2880x1800">2880 x 1800 pixels</a-option>
+            <a-option value="3840x2160">3840 x 2160 pixels</a-option>
+            <a-option value="2560x1440">2560 x 1440 pixels</a-option>
           </a-select>
         </a-form-item>
         <a-form-item label="Kích thước màn hình">
@@ -59,19 +61,20 @@
         </a-form-item>
       </a-form>
     </div>
+    {{ detailScreen }}
   </a-modal>
 </template>
 
 <script setup lang="ts">
 import { Ref, ref, watch } from 'vue'
-import { modifyScreen, ADProductScreenResponse, getScreenById, ADProductScreenResolutionResponse, ADProductScreenDetailResponse } from '@/api/admin/product/screen.api'
+import { modifyScreen, getScreenById, ADProductScreenDetailResponse } from '@/api/admin/product/screen.api'
 import { Notification } from '@arco-design/web-vue'
+import TypeScreenResolution from '@/constants/TypeScreenResolution'
 
 const props = defineProps<{
   isOpen: boolean
   id: string | undefined
   isDetail: boolean
-  screenResolutions: ADProductScreenResolutionResponse[]
 }>()
 
 const emit = defineEmits(['success', 'close'])
@@ -81,15 +84,16 @@ const detailScreen: Ref<ADProductScreenDetailResponse> = ref({
   code: '',
   name: '',
   physicalSize: 0,
-  idScreenResolution: '',
+  resolution: '',
   panelType: '',
   technology: '',
 })
 
 const fetchDetailScreen = async () => {
   const res = await getScreenById(props.id as string)
-  
+
   detailScreen.value = res.data
+  detailScreen.value.resolution = TypeScreenResolution[res.data.resolution as keyof typeof TypeScreenResolution]
 }
 
 const resetField = () => {
@@ -98,7 +102,7 @@ const resetField = () => {
     code: '',
     name: '',
     physicalSize: 0,
-    idScreenResolution: '',
+    resolution: '',
     panelType: '',
     technology: '',
   }
@@ -117,12 +121,16 @@ const handleClickCancel = () => {
 }
 
 const handleClickOK = async () => {
-  const res = await modifyScreen(detailScreen.value)
-  console.log(res.success)
-  if (res.success) Notification.success(props.id ? 'Cập nhật Screen thành công' : 'Thêm Screen thành công')
-  else Notification.error(props.id ? 'Thêm Screen thành công' : 'Thêm Screen thất bại')
-  resetField()
-  emit('success')
+  try {
+    const res = await modifyScreen(detailScreen.value)
+
+    if (res.success) Notification.success(props.id ? 'Cập nhật Screen thành công' : 'Thêm Screen thành công')
+    else Notification.error(props.id ? 'Thêm Screen thành công' : 'Thêm Screen thất bại')
+    resetField()
+    emit('success')
+  } catch (error) {
+    console.log(error)
+  }
 }
 </script>
 

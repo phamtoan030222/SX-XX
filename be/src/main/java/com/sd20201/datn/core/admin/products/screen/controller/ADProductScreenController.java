@@ -26,11 +26,6 @@ public class ADProductScreenController {
         return Helper.createResponseEntity(screenService.getScreens(request));
     }
 
-    @GetMapping("/resolutions")
-    ResponseEntity<?> getResolutionScreens() {
-        return Helper.createResponseEntity(screenService.getResolutionScreens());
-    }
-
     @GetMapping("/{id}")
     ResponseEntity<?> getScreen(@PathVariable String id) {
         return Helper.createResponseEntity(screenService.getDetail(id));

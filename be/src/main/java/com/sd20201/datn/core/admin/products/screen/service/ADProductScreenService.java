@@ -7,8 +7,6 @@ import com.sd20201.datn.core.common.base.ResponseObject;
 public interface ADProductScreenService {
     ResponseObject<?> getScreens(ADProductScreenRequest request);
 
-    ResponseObject<?> getResolutionScreens();
-
     ResponseObject<?> getDetail(String id);
 
     ResponseObject<?> changeStatus(String id);

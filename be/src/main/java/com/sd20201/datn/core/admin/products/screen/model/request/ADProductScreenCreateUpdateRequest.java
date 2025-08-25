@@ -1,5 +1,6 @@
 package com.sd20201.datn.core.admin.products.screen.model.request;
 
+import com.sd20201.datn.infrastructure.constant.TypeScreenResolution;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class ADProductScreenCreateUpdateRequest {
 
     private Float physicalSize;
 
-    private String idScreenResolution;
+    private String resolution;
 
     private String panelType;
 

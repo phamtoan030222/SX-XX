@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios'
 
 export type ADProductScreenRequest = PaginationParams & {
   physicalSize: number
-  idScreenResolution: string
+  resolution: string
   panelType: string
   technology: string
 }
@@ -15,7 +15,7 @@ export type ADProductScreenCreateUpdateRequest = {
   code: string
   name: string
   physicalSize: number
-  idScreenResolution: string
+  resolution: string
   panelType: string
   technology: string
 }
@@ -25,7 +25,7 @@ export type ADProductScreenResponse = {
   code: string
   name: string
   physicalSize: number
-  screenResolution: string
+  resolution: string
   panelType: string
   technology: string
 }
@@ -35,7 +35,7 @@ export type ADProductScreenDetailResponse = {
   code: string
   name: string
   physicalSize: number
-  idScreenResolution: string
+  resolution: string
   panelType: string
   technology: string
 }
@@ -52,15 +52,6 @@ export const getScreens = async (params: ADProductScreenRequest) => {
     method: 'GET',
     params,
   })) as AxiosResponse<DefaultResponse<PaginationResponse<Array<ADProductScreenResponse>>>>
-
-  return res.data
-}
-
-export const getScreenResolutions = async () => {
-  const res = (await request({
-    url: `${API_ADMIN_PRODUCT_SCREEN}/resolutions`,
-    method: 'GET',
-  })) as AxiosResponse<DefaultResponse<Array<ADProductScreenResolutionResponse>>>
 
   return res.data
 }
