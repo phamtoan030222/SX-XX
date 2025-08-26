@@ -61,7 +61,6 @@
         </a-form-item>
       </a-form>
     </div>
-    {{ detailScreen }}
   </a-modal>
 </template>
 
