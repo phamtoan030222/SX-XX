@@ -3,12 +3,10 @@ package com.sd20201.datn.core.admin.products.screen.service.impl;
 import com.sd20201.datn.core.admin.products.screen.model.request.ADProductScreenCreateUpdateRequest;
 import com.sd20201.datn.core.admin.products.screen.model.request.ADProductScreenRequest;
 import com.sd20201.datn.core.admin.products.screen.repository.ADProductScreenRepository;
-import com.sd20201.datn.core.admin.products.screen.repository.ADProductScreenResolutionRepository;
 import com.sd20201.datn.core.admin.products.screen.service.ADProductScreenService;
 import com.sd20201.datn.core.common.base.PageableObject;
 import com.sd20201.datn.core.common.base.ResponseObject;
 import com.sd20201.datn.entity.Screen;
-import com.sd20201.datn.entity.ScreenResolution;
 import com.sd20201.datn.infrastructure.constant.EntityStatus;
 import com.sd20201.datn.infrastructure.constant.TypeScreenResolution;
 import com.sd20201.datn.utils.Helper;
@@ -23,8 +21,6 @@ import java.util.Optional;
 public class ADProductScreenServiceImpl implements ADProductScreenService {
 
     private final ADProductScreenRepository screenRepository;
-
-    private final ADProductScreenResolutionRepository screenResolutionRepository;
 
     @Override
     public ResponseObject<?> getScreens(ADProductScreenRequest request) {
