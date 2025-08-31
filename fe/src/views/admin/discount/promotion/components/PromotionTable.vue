@@ -8,21 +8,18 @@
     @page-change="handlePageChange"
     @page-size-change="handlePageSizeChange"
   >
-    <!-- Discount Name -->
     <template #discountName="{ record }">
       <a-typography-text copyable>
         {{ record.discountName }}
       </a-typography-text>
     </template>
 
-    <!-- Discount Code -->
     <template #discountCode="{ record }">
       <a-tag color="blue">
         {{ record.discountCode }}
       </a-tag>
     </template>
 
-    <!-- Percentage -->
     <template #percentage="{ record }">
       <a-tag color="green">
         <template #icon>
@@ -32,14 +29,12 @@
       </a-tag>
     </template>
 
-    <!-- Status -->
     <template #status="{ record }">
       <a-tag :color="getStatusColor(record)">
         {{ getStatusText(record) }}
       </a-tag>
     </template>
 
-    <!-- Time Range -->
     <template #timeRange="{ record }">
       <a-space direction="vertical" size="mini">
         <a-typography-text type="secondary" style="font-size: 12px">
@@ -53,14 +48,12 @@
       </a-space>
     </template>
 
-    <!-- Created Date -->
     <template #createdDate="{ record }">
       <a-typography-text type="secondary">
         {{ formatDate(record.createdDate) }}
       </a-typography-text>
     </template>
 
-    <!-- Description -->
     <template #description="{ record }">
       <a-tooltip :content="record.description || 'Không có mô tả'" position="top">
         <a-typography-text style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block">
@@ -69,13 +62,21 @@
       </a-tooltip>
     </template>
 
-    <!-- Actions -->
     <template #actions="{ record }">
       <a-space>
         <a-tooltip content="Chỉnh sửa" position="top">
           <a-button type="text" size="small" @click="handleEdit(record)" :disabled="!canEdit(record)">
             <template #icon>
               <IconEdit />
+            </template>
+          </a-button>
+        </a-tooltip>
+
+        <!-- Nút Bắt đầu sớm -->
+        <a-tooltip content="Bắt đầu sớm" position="top">
+          <a-button type="text" size="small" status="success" @click="handleStart(record)" :disabled="!canStart(record)">
+            <template #icon>
+              <IconPlayCircle />
             </template>
           </a-button>
         </a-tooltip>
@@ -103,7 +104,7 @@
 <script lang="ts" setup>
 import { DiscountResponse } from '@/api/discount/discountApi'
 import { TableColumnData } from '@arco-design/web-vue'
-import { IconClockCircle, IconDelete, IconEdit, IconGift, IconPauseCircle } from '@arco-design/web-vue/es/icon'
+import { IconClockCircle, IconDelete, IconEdit, IconGift, IconPauseCircle, IconPlayCircle } from '@arco-design/web-vue/es/icon'
 import { computed } from 'vue'
 
 interface Props {
@@ -122,13 +123,13 @@ interface Emits {
   (e: 'edit', record: DiscountResponse): void
   (e: 'delete', record: DiscountResponse): void
   (e: 'deactivate', record: DiscountResponse): void
+  (e: 'start', record: DiscountResponse): void // Thêm emit cho start
   (e: 'page-change', page: number, pageSize: number): void
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-// Table columns configuration
 const columns = computed<TableColumnData[]>(() => [
   {
     title: 'Tên đợt giảm giá',
@@ -182,13 +183,12 @@ const columns = computed<TableColumnData[]>(() => [
   {
     title: 'Thao tác',
     slotName: 'actions',
-    width: 150,
+    width: 180, 
     align: 'center',
     fixed: 'right',
   },
 ])
 
-// Pagination props
 const paginationProps = computed(() => ({
   ...props.pagination,
   showJumper: true,
@@ -196,9 +196,7 @@ const paginationProps = computed(() => ({
   pageSizeOptions: [10, 20, 50, 100],
 }))
 
-// Utility functions
 const formatDate = (timestamp: number): string => {
-  // Fix: Handle invalid timestamps
   if (!timestamp || timestamp <= 0) {
     return 'N/A'
   }
@@ -220,7 +218,6 @@ const formatDate = (timestamp: number): string => {
 const getPromotionStatus = (record: DiscountResponse) => {
   const now = Date.now()
 
-  // Fix: Handle invalid timestamps
   if (!record.startTime || !record.endTime) {
     return 'unknown'
   }
@@ -258,26 +255,28 @@ const getStatusText = (record: DiscountResponse): string => {
   }
 }
 
-// Permission checks
+
 const canEdit = (record: DiscountResponse): boolean => {
   const now = Date.now()
-  // Chỉ sửa được khi chưa bắt đầu hoặc đang diễn ra
   return !!(record.startTime && record.endTime && now < record.endTime)
 }
 
 const canDelete = (record: DiscountResponse): boolean => {
   const now = Date.now()
-  // Chỉ xóa được khi chưa bắt đầu
   return !!(record.startTime && now < record.startTime)
 }
 
 const canDeactivate = (record: DiscountResponse): boolean => {
   const now = Date.now()
-  // Chỉ kết thúc sớm khi đang diễn ra
   return !!(record.startTime && record.endTime && now >= record.startTime && now <= record.endTime)
 }
 
-// Event handlers
+
+const canStart = (record: DiscountResponse): boolean => {
+  const now = Date.now()
+  return !!(record.startTime && record.endTime && now < record.startTime && record.endTime > now)
+}
+
 const handleEdit = (record: DiscountResponse) => {
   emit('edit', record)
 }
@@ -288,6 +287,10 @@ const handleDelete = (record: DiscountResponse) => {
 
 const handleDeactivate = (record: DiscountResponse) => {
   emit('deactivate', record)
+}
+
+const handleStart = (record: DiscountResponse) => {
+  emit('start', record)
 }
 
 const handlePageChange = (page: number) => {

@@ -1,6 +1,7 @@
 package com.sd20201.datn.core.admin.discounts.discount.service;
 
 import com.sd20201.datn.core.admin.discounts.discount.model.request.AdDiscountRequest;
+import com.sd20201.datn.core.admin.discounts.discount.model.request.AdDscountFilterRequest;
 import com.sd20201.datn.core.admin.discounts.discount.model.request.DiscountUpdateRequest;
 import com.sd20201.datn.core.admin.discounts.discount.model.request.DiscountValidateRequest;
 
@@ -12,9 +13,14 @@ public interface AdDiscountService {
 
     ResponseObject<?> creatDiscount(@Valid DiscountValidateRequest request);
 
-    ResponseObject<?> updateDiscount(@Valid DiscountUpdateRequest request);
+    ResponseObject<?> updateDiscount(@Valid  String id,  DiscountUpdateRequest request);
 
-    ResponseObject<?> deactivateDiscount(String id);
+    ResponseObject<?> endDiscount(String id);
+
+    ResponseObject<?> startDiscount(String id);
 
     ResponseObject<?> deleteDiscount(String id);
+
+    ResponseObject<?> filterDiscounts(AdDscountFilterRequest request);
+
 }

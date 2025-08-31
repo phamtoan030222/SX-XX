@@ -142,7 +142,7 @@ const columns = [
     title: 'Hành động',
     dataIndex: 'action',
     render: ({ record }: { record: OperatingSystemResponse }) => (
-      <a-button type="text" onClick={() => openEditModal(record)}>
+      <a-button type='text' onClick={() => openEditModal(record)}>
         Chỉnh sửa
       </a-button>
     ),

@@ -4,7 +4,7 @@ import { API_ADMIN_PRODUCT_DETAIL } from '@/constants/url'
 import { AxiosResponse } from 'axios'
 
 export type ADProductDetailRequest = PaginationParams & {
-  idProduct: string,
+  idProduct: string
   idCPU: string
   idGPU: string
   idColor: string

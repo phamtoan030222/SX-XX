@@ -1,6 +1,7 @@
 package com.sd20201.datn.core.admin.discounts.discount.controller;
 
 import com.sd20201.datn.core.admin.discounts.discount.model.request.AdDiscountRequest;
+import com.sd20201.datn.core.admin.discounts.discount.model.request.AdDscountFilterRequest;
 import com.sd20201.datn.core.admin.discounts.discount.model.request.DiscountUpdateRequest;
 import com.sd20201.datn.core.admin.discounts.discount.model.request.DiscountValidateRequest;
 import com.sd20201.datn.core.admin.discounts.discount.service.AdDiscountService;
@@ -35,19 +36,30 @@ public class AdDiscountController {
     }
 
 
-    @PutMapping("/updateDiscount")
-    public ResponseEntity<?> updateDiscount(@Valid @RequestBody DiscountUpdateRequest request){
-        return Helper.createResponseEntity(adDiscountService.updateDiscount(request));
+    @PutMapping("/updateDiscount/{id}")
+    public ResponseEntity<?> updateDiscount( @PathVariable("id") String id ,@Valid @RequestBody DiscountUpdateRequest request){
+        return Helper.createResponseEntity(adDiscountService.updateDiscount(id,request));
     }
 
-    @PutMapping("/deactivate/{id}")
-    public ResponseEntity<?> deactivate(@PathVariable String id) {
-        return Helper.createResponseEntity(adDiscountService.deactivateDiscount(id));
+    @PutMapping("/end/{id}")
+    public ResponseEntity<?>endDiscount(@PathVariable String id) {
+        return Helper.createResponseEntity(adDiscountService.endDiscount(id));
+    }
+
+    @PutMapping("/start/{id}")
+    public ResponseEntity<?>startDiscount(@PathVariable String id) {
+        return Helper.createResponseEntity(adDiscountService.startDiscount(id));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         return Helper.createResponseEntity(adDiscountService.deleteDiscount(id));
     }
+
+    @PostMapping("/filter")
+    public ResponseEntity<?> filterDiscount(@RequestBody  AdDscountFilterRequest request) {
+        return Helper.createResponseEntity(adDiscountService.filterDiscounts(request));
+    }
+
 
 }

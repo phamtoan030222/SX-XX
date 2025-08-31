@@ -15,7 +15,7 @@
     <div class="container">
       <a-form auto-label-width>
         <a-form-item v-show="id" label="Mã">
-          <a-input v-model="detailProductDetail.code" disabled/>
+          <a-input v-model="detailProductDetail.code" disabled />
         </a-form-item>
         <a-form-item label="Giá">
           <a-input-number v-model.number="detailProductDetail.price" placeholder="Nhập giá" :formatter="formatter" :parser="parser" />
@@ -142,7 +142,7 @@ const handleClickCancel = () => {
 const handleClickOK = async () => {
   const res = await modifyProductDetail({
     idProduct: props.idProduct,
-    ...detailProductDetail.value
+    ...detailProductDetail.value,
   })
   console.log(res.success)
   if (res.success) Notification.success(props.id ? 'Cập nhật sản phẩm chi tiết thành công' : 'Thêm sản phẩm chi tiết thành công')

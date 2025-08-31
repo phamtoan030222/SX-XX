@@ -8,8 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DiscountUpdateRequest {
-    @NotNull(message = "Id không được để trống khi update")
-    private String id;
 
     @NotBlank(message = "Tên Đợt giảm giá không được để trống")
     private String discountName;

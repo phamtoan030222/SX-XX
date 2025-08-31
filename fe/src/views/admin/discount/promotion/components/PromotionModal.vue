@@ -104,6 +104,7 @@
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable */
 import {
   createDiscount,
   updateDiscount,
@@ -120,10 +121,10 @@ interface FormData {
   discountName: string
   discountCode: string
   percentage: number
-  startDate: number // Dùng cho API request
-  endDate: number // Dùng cho API request
+  startDate: number 
+  endDate: number 
   description?: string
-  timeRange?: [Date, Date] // Chỉ dùng cho UI
+  timeRange?: [Date, Date] 
 }
 
 interface Props {
@@ -189,7 +190,6 @@ const formRules = {
           return
         }
 
-        // Chuyển sang timestamp để chắc chắn so sánh chính xác
         const start = new Date(value[0]).getTime()
         const end = new Date(value[1]).getTime()
 
@@ -229,7 +229,6 @@ const resetForm = () => {
   })
 }
 
-// Watch modal visibility để xử lý khởi tạo giá trị
 watch(
   () => props.visible,
   (visible) => {
@@ -237,17 +236,13 @@ watch(
       if (!props.isEdit) {
         resetForm()
         generateCode()
-        // Khởi tạo timeRange mặc định khi mở modal tạo mới
         const now = new Date()
         const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000)
         formModel.timeRange = [now, tomorrow]
-        // Cập nhật startDate và endDate
         formModel.startDate = now.getTime()
         formModel.endDate = tomorrow.getTime()
       } else {
-        // Gán lại giá trị cho formModel khi edit
         Object.assign(formModel, props.formData)
-        // Chuyển đổi startDate và endDate thành timeRange để hiển thị trong UI
         if (props.formData.startTime && props.formData.endTime) {
           formModel.timeRange = [new Date(props.formData.startTime), new Date(props.formData.endTime)]
         }
@@ -259,16 +254,37 @@ watch(
   }
 )
 
-// Watch formModel.timeRange để cập nhật startDate và endDate
+
 watch(
   () => formModel.timeRange,
   (newTimeRange) => {
+    console.log('Watch timeRange:', newTimeRange, typeof newTimeRange?.[0])
+    
     if (newTimeRange && Array.isArray(newTimeRange) && newTimeRange.length === 2) {
-      const [startDate, endDate] = newTimeRange
-      if (startDate instanceof Date && endDate instanceof Date) {
+      const [start, end] = newTimeRange
+      
+      let startDate: Date
+      let endDate: Date
+      
+      if (typeof start === 'string') {
+        startDate = new Date(start)
+      } else {
+        startDate = start
+      }
+      
+      if (typeof end === 'string') {
+        endDate = new Date(end)
+      } else {
+        endDate = end
+      }
+      
+      if (startDate instanceof Date && !isNaN(startDate.getTime()) && 
+          endDate instanceof Date && !isNaN(endDate.getTime())) {
         formModel.startDate = startDate.getTime()
         formModel.endDate = endDate.getTime()
+        console.log('Updated timestamps:', formModel.startDate, formModel.endDate)
       } else {
+        console.log('Invalid dates')
         formModel.startDate = 0
         formModel.endDate = 0
       }
@@ -280,16 +296,35 @@ watch(
   { deep: true }
 )
 
-const formatPreviewDate = (date: Date): string => {
-  if (!date || !(date instanceof Date)) return '-'
-  return date.toLocaleString('vi-VN', {
+const formatPreviewDate = (date: Date | string): string => {
+  console.log('formatPreviewDate input:', date, typeof date)
+  
+  let dateObj: Date
+  
+  if (typeof date === 'string') {
+    dateObj = new Date(date)
+  } else if (date instanceof Date) {
+    dateObj = date
+  } else {
+    return '-'
+  }
+  
+  if (isNaN(dateObj.getTime())) {
+    console.log('Invalid date:', date)
+    return '-'
+  }
+  
+  const result = dateObj.toLocaleString('vi-VN', {
     year: 'numeric',
-    month: '2-digit',
+    month: '2-digit', 
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
   })
+  
+  console.log('formatPreviewDate result:', result)
+  return result
 }
 
 const disabledDate = (current: Date) => {
@@ -300,23 +335,36 @@ const disabledDate = (current: Date) => {
 
 const handleSubmit = async () => {
   try {
-    const valid = await formRef.value?.validate()
-    if (!valid) return false
-
     submitLoading.value = true
-
-    if (!formModel.timeRange || formModel.timeRange.length !== 2) {
-      Message.error('Vui lòng chọn thời gian áp dụng')
+    
+    const validationErrors = await formRef.value?.validate()
+    console.log('Form validation result:', validationErrors)
+    
+    if (validationErrors !== undefined) {
+      console.log('❌ Form validation FAILED with errors:', validationErrors)
       return false
     }
 
-    // Chắc chắn lấy timestamp chính xác
-    formModel.startDate = formModel.timeRange[0]?.valueOf()
-    formModel.endDate = formModel.timeRange[1]?.valueOf()
+    console.log('✅ Form validation PASSED')
 
-    if (props.isEdit && formModel.id) {
-      const updateData: UpdateDiscountRequest = {
-        id: formModel.id,
+    if (!formModel.timeRange || formModel.startDate === 0 || formModel.endDate === 0) {
+      Message.error('Vui lòng chọn thời gian áp dụng hợp lệ')
+      return false
+    }
+    
+    const requestData = {
+      discountName: formModel.discountName,
+      discountCode: formModel.discountCode,
+      percentage: formModel.percentage,
+      startDate: formModel.startDate,  
+      endDate: formModel.endDate,      
+      description: formModel.description || '',
+    }
+    
+    console.log('Request data:', requestData)
+    
+    if (props.isEdit) {
+      const updateData: Omit<UpdateDiscountRequest, 'id'> = {
         discountName: formModel.discountName,
         discountCode: formModel.discountCode,
         percentage: formModel.percentage,
@@ -324,49 +372,29 @@ const handleSubmit = async () => {
         endDate: formModel.endDate,
         description: formModel.description || '',
       }
-
-      const response = await updateDiscount(updateData)
-
-      if (response) {
-        Message.success('Cập nhật đợt giảm giá thành công')
-        emit('success') // 🔹 quan trọng: emit để table reload
-        emit('update:visible', false) // 🔹 đóng modal
-      }
+      
+      await updateDiscount(formModel.id!, updateData as UpdateDiscountRequest)
+      Message.success('Cập nhật đợt giảm giá thành công')
     } else {
       const createData: CreateDiscountRequest = {
         discountName: formModel.discountName,
         discountCode: formModel.discountCode,
         percentage: formModel.percentage,
-        startDate: formModel.startDate,
-        endDate: formModel.endDate,
+        startDate: formModel.startDate,  
+        endDate: formModel.endDate,  
         description: formModel.description || '',
       }
-
-      const response = await createDiscount(createData)
-
-      if (response) {
-        Message.success('Tạo đợt giảm giá thành công')
-        emit('success') // 🔹 emit để table reload
-        emit('update:visible', false) // 🔹 đóng modal
-        resetForm() // 🔹 reset form
-      }
+      await createDiscount(createData)
+      Message.success('Tạo đợt giảm giá thành công')
     }
-
+    
+    emit('success')
+    emit('update:visible', false)
     return true
+    
   } catch (error: any) {
-    let errorMessage = 'Có lỗi xảy ra khi xử lý yêu cầu'
-    const responseData = error?.response?.data
-
-    if (responseData?.message) {
-      errorMessage = responseData.message
-    } else if (Array.isArray(responseData?.errors) && responseData.errors.length > 0) {
-      const [firstError] = responseData.errors
-      errorMessage = firstError
-    } else if (error?.message) {
-      errorMessage = error.message
-    }
-
-    Message.error(errorMessage)
+    console.error('Submit error:', error)
+    Message.error(error?.message || 'Có lỗi xảy ra, vui lòng thử lại')
     return false
   } finally {
     submitLoading.value = false

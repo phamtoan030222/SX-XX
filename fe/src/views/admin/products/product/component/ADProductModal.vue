@@ -41,7 +41,9 @@
         </a-form-item>
         <a-form-item label="Chọn hệ điều hành">
           <a-select v-model="detailProduct.idOperatingSystem" placeholder="Chọn hệ điều hành">
-            <a-option v-for="operatingSystem in operatingSystems" :key="operatingSystem.value" :value="operatingSystem.value">{{ operatingSystem.label }}</a-option>
+            <a-option v-for="operatingSystem in operatingSystems" :key="operatingSystem.value" :value="operatingSystem.value">
+              {{ operatingSystem.label }}
+            </a-option>
           </a-select>
         </a-form-item>
       </a-form>
@@ -111,7 +113,7 @@ const handleClickOK = async () => {
   console.log(res.success)
   if (res.success) Notification.success(props.id ? 'Cập nhật sản phẩm thành công' : 'Thêm sản phẩm thành công')
   else Notification.error(props.id ? 'Thêm sản phẩm thành công' : 'Thêm sản phẩm thất bại')
-  if(!props.id) resetField()
+  if (!props.id) resetField()
   emit('success')
 }
 </script>

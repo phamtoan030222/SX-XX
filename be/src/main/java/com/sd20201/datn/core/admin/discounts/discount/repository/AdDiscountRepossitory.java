@@ -27,7 +27,7 @@ public interface AdDiscountRepossitory  extends DiscountRepository {
            WHERE (:discountName IS NULL OR c.name LIKE CONCAT('%', :discountName, '%'))
                  AND (:discountStatus IS NULL OR c.status = :discountStatus)
                  AND c.status = 0
-           ORDER BY c.createdDate DESC
+           ORDER BY c.startDate DESC
     """,
             countQuery = """
            SELECT COUNT(c.id)
@@ -50,5 +50,10 @@ public interface AdDiscountRepossitory  extends DiscountRepository {
     @Query("SELECT v FROM Discount v WHERE v.code = :discountCode AND v.id <> :id")
     List<Discount> findByCodeAndNotId(@Param("discountCode") String discountCode,
                                      @Param("id") String id);
+
+//    @Query("SELECT d FROM Discount d WHERE d.status = 'ACTIVE' AND " +
+//            "NOT (d.endDate <= :startDate OR d.startDate >= :endDate)")
+//    List<Discount> findOverlappingDiscounts(@Param("startDate") Long startDate,
+//                                            @Param("endDate") Long endDate);
 
 }
