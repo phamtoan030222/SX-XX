@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <Breadcrumb :items="['Sản phẩm']" />
     <a-spin :loading="loading" style="width: 100%">
       <a-card class="general-card">
@@ -242,7 +241,7 @@ const handleClickDetailProduct = (idProduct: string) => {
       id: idProduct,
     },
   })
-  console.log(router.getRoutes());
+  console.log(router.getRoutes())
 }
 </script>
 
@@ -250,7 +249,6 @@ const handleClickDetailProduct = (idProduct: string) => {
 .container {
   padding: 0 20px 20px 20px;
 }
-
 
 .mt-20px {
   margin-top: 20px;
