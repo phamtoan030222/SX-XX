@@ -27,7 +27,7 @@ public class Voucher extends PrimaryEntity implements Serializable {
 
     private Integer decreaseUnit;
 
-    private BigDecimal increaseUnit;
+    private BigDecimal maximumReduction;
 
     private Long startTime;
 
